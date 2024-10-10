@@ -1,0 +1,18 @@
+.Login h1 {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.Login a {
+    font-size: 12px;
+    text-transform: none;
+}
+
+.Login a:hover {
+    color: white;
+}
+
+.Login p {
+    font-size: 12px;
+    line-height: 1.8;
+}

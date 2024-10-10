@@ -1,0 +1,105 @@
+/* css for both, Admin & User Vacation Cards */
+
+.VacationCard {
+    width: 330px;
+    display: inline-block;
+    text-align: left;
+    background-image: linear-gradient(90deg, rgb(231, 231, 231), white);
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px;
+    overflow: auto;
+}
+
+/*Destination*/
+.VacationCard h2 {
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0 15px -5px 0;
+    letter-spacing: 2px;
+    height: 50px;
+}
+
+/*Date*/
+.VacationCard .Date {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/*Description*/
+.VacationCard p {
+    align-items: flex-start;
+    font-size: 15px;
+    height: 100px;
+    margin: 5px 0 -10px 0;
+    overflow: auto;
+}
+
+/*Price*/
+.VacationCard h4 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 5px;
+    text-align: right;
+}
+
+.VacationCard img {
+    text-align: center;
+    justify-content: center;
+    margin: 0 0 10px 0;
+    width: 100%;
+    height: 100px;
+    border: 1px solid white;
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+}
+
+.VacationCard>div:last-child {
+    margin-left: auto;
+}
+
+
+/* Admin features */
+.VacationCard #AdminBtn {
+    margin: 10px 0 20px 0;
+    text-align: right;
+    justify-content: right;
+    align-items: right;
+    display: inline-flex;
+    width: 100%;
+}
+
+
+/* Like */
+.LikeBox {
+    text-align: right;
+    margin-bottom: -25px;
+}
+
+.like-btn {
+    font-family: "Lato", sans-serif;
+    text-transform: capitalize;
+    width: 70px;
+    border: 1px solid #1877F2;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+    padding: 3px 0;
+    font-size: 14px;
+    color: #1877F2;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s;
+}
+
+.like-btn:hover, .like-btn:focus { 
+    background-color: #1876f29d; 
+    color: white;
+    border-color: transparent;
+}
+
+.like-btn.active {
+    background-color: #1877F2;
+    color: white;
+    border-color: transparent;
+}

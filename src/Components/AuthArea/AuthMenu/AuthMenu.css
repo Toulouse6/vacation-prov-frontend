@@ -1,0 +1,12 @@
+.AuthMenu {
+    position: fixed;
+    align-items: baseline;
+    right: 20px;
+    top: 10px;
+    font-size: 14px;
+}
+
+.AuthMenu>a {
+    font-family: "lato", sans-serif;
+    font-size: 12px;
+}

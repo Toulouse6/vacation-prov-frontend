@@ -1,0 +1,12 @@
+.TotalVacations {
+
+    justify-content: center;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 17px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: 10px 0 20px 0;
+}

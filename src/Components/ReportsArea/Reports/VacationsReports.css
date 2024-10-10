@@ -1,0 +1,19 @@
+.VacationsReports h1 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+/*Canvas Chart*/
+.VacationsReports .likesChart {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 2% 10% 0 10%;
+}
+
+.VacationsReports .likesChart a {
+    display: none;
+}

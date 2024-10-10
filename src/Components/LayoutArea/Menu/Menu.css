@@ -1,0 +1,36 @@
+.Menu {
+    display: inline-flex;
+    margin: auto;
+    gap: 30px;
+    height: 100%;
+    background-color: #7d97a3a1;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: center;
+}
+
+.Menu img {
+    width: 70px;
+    margin: 0 0 -5px 0;
+}
+
+a {
+    color: rgb(54, 54, 54);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.Menu>.active,
+.Menu a:hover {
+    color: white;
+}
+
+.Menu a {
+    text-decoration: none;
+    color: #000;
+    padding: 8px 16px;
+    font-family: "title-font", sans-serif;
+}

@@ -1,0 +1,132 @@
+html,
+body,
+#root {
+    margin: 0;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.481);
+    color: rgb(59, 59, 59);
+    overflow: hidden;
+    font-family: "lato", sans-serif;
+}
+
+/* Video Background */
+
+.VideoBackground {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: top center;
+    overflow: hidden;
+}
+
+.VideoBackground video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Title */
+
+h1 {
+    font-family: "title-font", sans-serif;
+    text-transform: uppercase;
+    line-height: 1.4;
+    letter-spacing: 3px;
+    font-size: 35px;
+    margin: 40px 0 5px 0;
+    color: rgb(59, 59, 59);
+}
+
+h2 {
+    font-family: "title-font", sans-serif;
+    text-transform: uppercase;
+}
+
+/* Buttons */
+
+button,
+.btn-outline-secondary {
+    font-family: "title-font", sans-serif;
+    text-transform: uppercase;
+    color: white;
+    border-color: white;
+    background-color: rgb(121, 144, 155);
+}
+
+button:hover,
+.btn-outline-secondary:hover {
+    color: white;
+    border: 1px solid white;
+    ;
+    background-color: rgba(132, 153, 161, 0.799);
+}
+
+/* Go back */
+
+.GoBack {
+    color: rgb(59, 59, 59);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: 500;
+}
+
+.GoBack:hover {
+    color: rgb(121, 144, 155);
+}
+
+/* Form */
+
+form {
+    width: 400px;
+    border: 1px solid white;
+    text-align: left;
+    line-height: 2;
+    padding: 20px 10px 10px 10px;
+    margin: 25px auto;
+    background-color: #7d97a377;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px;
+    font-size: 15px;
+    color: white;
+    position: relative;
+    letter-spacing: 2px;
+}
+
+form>input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-size: large;
+}
+
+form>button {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 20px 0 20px 0;
+    font-size: large;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+form .error {
+    color: red;
+    font-size: 10px;
+    text-align: right;
+    position: absolute;
+    margin: -12px 0 0 -25px;
+    width: 100%;
+}
+
+/* Font */
+
+@font-face {
+    font-family: 'title-font';
+    src: url('./Assets/fonts/peignot.regular.ttf');
+}

@@ -1,0 +1,32 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+/*Home page intro*/
+.Home>p {
+    width: 50%;
+    font-size: large;
+    margin-top: 10px;
+    line-height: 2;
+    color: rgb(59, 59, 59);
+}
+
+.Home p>b {
+    font-weight: 800;
+    line-height: 1.5;
+    color: black;
+    font-size: x-large;
+    font-family: "title-font", sans-serif;
+}
+
+/*Home page bird gif*/
+.birdHome {
+    z-index: 2;
+    margin: 50px 385px -70px 0;
+    width: 100px;
+}

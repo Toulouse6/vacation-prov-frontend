@@ -1,6 +1,7 @@
 import VacationModel from "../Models/VacationModel";
 import { appStore } from "../Redux/Store";
 import { vacationActionCreators } from "../Redux/VacationSlice";
+import { likesService } from "./LikesService";
 
 class VacationsService {
 
@@ -64,9 +65,7 @@ class VacationsService {
     // Upcoming Vacations:
     public async getUpcomingVacations(): Promise<VacationModel[]> {
         try {
-            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
-            const vacations = await response.json();
-
+            const vacations = await this.getAllVacations(); // Fetch all vacations once
             return vacations.filter((vacation: VacationModel) => {
                 const startDate = new Date(vacation.startDate);
                 return startDate > new Date();
@@ -81,8 +80,7 @@ class VacationsService {
     // Active Vacations:
     public async getActiveVacations(): Promise<VacationModel[]> {
         try {
-            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
-            const vacations = await response.json();
+            const vacations = await this.getAllVacations(); // Fetch all vacations once
             const today = new Date();
 
             return vacations.filter((vacation: VacationModel) => {
@@ -97,43 +95,26 @@ class VacationsService {
         }
     }
 
+
     // Favorite Vacations:
     public async getFavoriteVacations(userId: number): Promise<VacationModel[]> {
         try {
-            // Fetch the likes.json file
-            const likesResponse = await fetch(`${process.env.PUBLIC_URL}/data/likes.json`);
-
-            // Check if the response is OK
-            if (!likesResponse.ok) {
-                throw new Error(`Failed to fetch likes: ${likesResponse.statusText}`);
-            }
-
-            const likes = await likesResponse.json();
-
-            // Fetch the vacations.json file
-            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
-
-            // Check if the response is OK
-            if (!response.ok) {
-                throw new Error(`Failed to fetch vacations: ${response.statusText}`);
-            }
-
-            const vacations = await response.json();
-
-            // Filter likes to match the current user
-            const favoriteVacationIds = likes
-                .filter((like: any) => like.user_id === userId)
-                .map((like: any) => like.vacation_id);
-
+            // Get favorite vacation IDs from LikesService
+            const favoriteVacationIds = await likesService.getFavoriteVacations(userId);
+    
+            // Fetch all vacations
+            const vacationsResponse = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
+            if (!vacationsResponse.ok) throw new Error(`Failed to fetch vacations: ${vacationsResponse.statusText}`);
+            const vacations: VacationModel[] = await vacationsResponse.json(); // Ensure correct type
+    
             // Filter vacations by matching IDs from likes
             return vacations.filter((vacation: VacationModel) => favoriteVacationIds.includes(vacation.id));
-
         } catch (error) {
             console.error("Error fetching favorite vacations:", error);
             throw error;
         }
-    }
-
+    }    
+    
 
     // Add Vacation:
     public async addVacation(vacation: VacationModel): Promise<void> {

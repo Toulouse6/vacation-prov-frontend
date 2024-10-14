@@ -19,34 +19,29 @@ const VacationsReports = () => {
     // Hook to page title:
     useTitle("Vacation Provocation | Reports");
 
-
     // State to store the data points for the chart
     const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
 
     // useEffect to fetch server data:
     useEffect(() => {
-
-        // Map the API data to DataPoint objects
         likesService.getVacationsWithLikes()
-            .then(data => {
+            .then((data: { destination: string; likesCount: number }[]) => { // Explicitly define the data type
                 console.log("API Response:", data);
                 const points = data.map((item) => ({
                     label: item.destination,
                     y: item.likesCount
                 }));
 
-                // Update the state with the processed data points                console.log("Processed DataPoints:", points);
+                // Update the state with the processed data points
                 setDataPoints(points);
             })
-            .catch(error => {
+            .catch((error: Error) => {
                 console.error('Error fetching vacations with likes:', error);
             });
     }, []); // [] means the effect runs only once
 
-
     // Chart options & css
     const options = {
-
         animationEnabled: true,
         theme: "light",
         axisY: {
@@ -73,7 +68,6 @@ const VacationsReports = () => {
         }]
     };
 
-
     // Convert data to CSV
     const convertToCSV = (data: DataPoint[]): string => {
         const csvRows = ["Destination,Likes"];
@@ -85,7 +79,6 @@ const VacationsReports = () => {
 
     // Function to trigger download
     const downloadCSV = () => {
-
         const csvData = convertToCSV(dataPoints);
         const blob = new Blob([csvData], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
@@ -101,7 +94,6 @@ const VacationsReports = () => {
 
     return (
         <div className="VacationsReports">
-
             <h1>Engagement Report</h1>
             <NavLink className="GoBack" to="/vacations">⇠ Go back</NavLink>
 
@@ -111,7 +103,6 @@ const VacationsReports = () => {
 
             <br />
             <button onClick={downloadCSV} className="btn btn-outline-secondary">Download CSV</button>
-
         </div>
     );
 };

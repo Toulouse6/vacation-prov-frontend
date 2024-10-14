@@ -3,8 +3,6 @@ import "./UserData.css";
 
 function UserData(): JSX.Element {
 
-    // useState to hold each user data initialized as "":
-
     const [data, setData] = useState<string>("");
 
     function getData(): void {

@@ -9,9 +9,7 @@ type VacationCardProps = {
     vacation: VacationModel;
     user: UserModel;
 
-    // Callback to update likes state in parent component:
     onLikesUpdated: () => void;
-    // Initial like count:
     likeCount: number;
 };
 
@@ -21,7 +19,6 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
     const likeStorageKey = `liked_${vacation.id}_${user.id}`;
     const countStorageKey = `likeCount_${vacation.id}`;
 
-    // State for managing like status
     const [liked, setLiked] = useState(() => {
         const storedLike = localStorage.getItem(likeStorageKey);
         return storedLike ? JSON.parse(storedLike) : false;

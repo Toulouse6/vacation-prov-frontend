@@ -38,7 +38,7 @@ class VacationsService {
 
             const action = vacationActionCreators.initAll(vacations);
             appStore.dispatch(action);
-            this.saveVacationsToLocalStorage(vacations); // Save to local storage
+            this.saveVacationsToLocalStorage(vacations); 
             return vacations;
 
         } catch (error) {
@@ -58,12 +58,12 @@ class VacationsService {
 
             // If not found, fetch from API
             const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
-            const allVacations: VacationModel[] = await response.json(); // Ensure correct type
+            const allVacations: VacationModel[] = await response.json(); 
 
             const fetchedVacation = allVacations.find((v: VacationModel) => v.id === id);
 
             if (fetchedVacation) {
-                // Parse dates for internal use, but keep as string in the model
+                // Parse dates for internal use
                 fetchedVacation.startDate = this.parseValidDate(fetchedVacation.startDate)?.toISOString() || fetchedVacation.startDate;
                 fetchedVacation.endDate = this.parseValidDate(fetchedVacation.endDate)?.toISOString() || fetchedVacation.endDate;
             }
@@ -100,7 +100,7 @@ class VacationsService {
     public async getFavoriteVacations(userId: number): Promise<VacationModel[]> {
         try {
             const favoriteVacationIds = await likesService.getFavoriteVacations(userId);
-            const vacations = await this.getAllVacations(); // Get all vacations from local storage
+            const vacations = await this.getAllVacations(); 
             return vacations.filter((vacation: VacationModel) => favoriteVacationIds.includes(vacation.id));
         } catch (error) {
             console.error("Error fetching favorite vacations:", error);
@@ -116,7 +116,7 @@ class VacationsService {
 
             const currentVacations = this.getAllVacationsFromLocalStorage();
             currentVacations.push(vacation);
-            this.saveVacationsToLocalStorage(currentVacations); // Save updated vacations to local storage
+            this.saveVacationsToLocalStorage(currentVacations); 
 
         } catch (error) {
             console.error("Error adding vacation:", error);
@@ -132,7 +132,7 @@ class VacationsService {
 
             const currentVacations = this.getAllVacationsFromLocalStorage();
             const updatedVacations = currentVacations.map(v => v.id === vacation.id ? vacation : v);
-            this.saveVacationsToLocalStorage(updatedVacations); // Save updated vacations to local storage
+            this.saveVacationsToLocalStorage(updatedVacations);  
 
         } catch (error) {
             console.error("Error updating vacation:", error);
@@ -148,7 +148,7 @@ class VacationsService {
 
             const currentVacations = this.getAllVacationsFromLocalStorage();
             const updatedVacations = currentVacations.filter(v => v.id !== id);
-            this.saveVacationsToLocalStorage(updatedVacations); // Save updated vacations to local storage
+            this.saveVacationsToLocalStorage(updatedVacations);  
 
         } catch (error) {
             console.error("Error deleting vacation:", error);

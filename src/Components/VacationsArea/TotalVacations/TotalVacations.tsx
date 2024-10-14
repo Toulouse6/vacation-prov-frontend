@@ -4,7 +4,7 @@ import { AppState } from "../../../Redux/AppState";
 import "./TotalVacations.css";
 
 function TotalVacations(): JSX.Element {
-    // State to manage total vacation count
+ 
     const [totalCount, setTotalCount] = useState<number>(0);
 
     // useSelector to get vacation count from Redux state:

@@ -4,7 +4,7 @@ import { appStore } from "../Redux/Store";
 import { authActionCreators } from "../Redux/AuthSlice";
 
 class AuthService {
-    // Constructor:
+ 
     public constructor() {
         // Get token from session storage:
         const token = sessionStorage.getItem("token");
@@ -20,7 +20,7 @@ class AuthService {
 
     // Simulate registering a new user:
     public async register(newUser: UserModel): Promise<void> {
-        // Mock users data (for testing purposes):
+    
         const users = [
             { id: 1, firstName: "Ollie", lastName: "Davenport", email: "meetollie@gmail.com", password: "1234", roleId: 1, isAuthenticated: true, token: "dummy-token" },
             { id: 1, firstName: "Tal", lastName: "Argaman", email: "tal.argamanbib@gmail.com", password: "argaman", roleId: 2, isAuthenticated: true, token: "dummy-token" },
@@ -33,9 +33,9 @@ class AuthService {
             throw new Error("User already exists");
         }
 
-        // Simulate adding new user (not persistent)
+        // Simulate adding new user 
         users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users)); // Store updated users locally
+        localStorage.setItem("users", JSON.stringify(users));  
 
         // Simulate token generation and save to session storage
         const token = "dummy-token";
@@ -69,8 +69,8 @@ class AuthService {
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("user", JSON.stringify(user));
 
-        // Update global state (explicit cast to UserModel):
-        appStore.dispatch(authActionCreators.login(user as UserModel));  // Cast user to UserModel here
+        // Update global state:
+        appStore.dispatch(authActionCreators.login(user as UserModel)); 
     }
 
 

@@ -17,17 +17,19 @@ class VacationsService {
         return storedVacations ? JSON.parse(storedVacations) : [];
     }
 
+    // Save all vacations to local storage:
+    private saveVacationsToLocalStorage(vacations: VacationModel[]) {
+        localStorage.setItem('vacations', JSON.stringify(vacations));
+    }
 
     // Get all vacations:
     public async getAllVacations(): Promise<VacationModel[]> {
-        // This method can now check local storage first
         const localVacations = this.getAllVacationsFromLocalStorage();
         if (localVacations.length > 0) return localVacations;
 
         try {
             const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
             let vacations = await response.json();
-
             vacations = vacations.map((vacation: VacationModel) => ({
                 ...vacation,
                 startDate: this.parseValidDate(vacation.startDate),
@@ -36,6 +38,7 @@ class VacationsService {
 
             const action = vacationActionCreators.initAll(vacations);
             appStore.dispatch(action);
+            this.saveVacationsToLocalStorage(vacations); // Save to local storage
             return vacations;
 
         } catch (error) {
@@ -45,23 +48,27 @@ class VacationsService {
     }
 
     // Get one vacation:
-    public async getOneVacation(id: number): Promise<VacationModel> {
+    public async getOneVacation(id: number): Promise<VacationModel | undefined> {
         try {
-            let vacations = appStore.getState().vacations;
-            let vacation = vacations.find((v) => v.id === id);
+            // First check in local storage
+            const vacations = this.getAllVacationsFromLocalStorage();
+            const vacation = vacations.find((v) => v.id === id);
 
             if (vacation) return vacation;
 
+            // If not found, fetch from API
             const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
-            vacations = await response.json();
-            vacation = vacations.find((v) => v.id === id);
+            const allVacations: VacationModel[] = await response.json(); // Ensure correct type
 
-            if (vacation) {
-                vacation.startDate = new Date(vacation.startDate);
-                vacation.endDate = new Date(vacation.endDate);
+            const fetchedVacation = allVacations.find((v: VacationModel) => v.id === id);
+
+            if (fetchedVacation) {
+                // Parse dates for internal use, but keep as string in the model
+                fetchedVacation.startDate = this.parseValidDate(fetchedVacation.startDate)?.toISOString() || fetchedVacation.startDate;
+                fetchedVacation.endDate = this.parseValidDate(fetchedVacation.endDate)?.toISOString() || fetchedVacation.endDate;
             }
 
-            return vacation;
+            return fetchedVacation;
 
         } catch (error) {
             console.error("Error fetching one vacation:", error);
@@ -71,50 +78,29 @@ class VacationsService {
 
     // Upcoming Vacations:
     public async getUpcomingVacations(): Promise<VacationModel[]> {
-        try {
-            const vacations = await this.getAllVacations(); // Fetch all vacations once
-            return vacations.filter((vacation: VacationModel) => {
-                const startDate = new Date(vacation.startDate);
-                return startDate > new Date();
-            });
-
-        } catch (error) {
-            console.error("Error fetching upcoming vacations:", error);
-            throw error;
-        }
+        const vacations = await this.getAllVacations();
+        return vacations.filter((vacation: VacationModel) => {
+            const startDate = new Date(vacation.startDate);
+            return startDate > new Date();
+        });
     }
 
     // Active Vacations:
     public async getActiveVacations(): Promise<VacationModel[]> {
-        try {
-            const vacations = await this.getAllVacations(); // Fetch all vacations once
-            const today = new Date();
-
-            return vacations.filter((vacation: VacationModel) => {
-                const startDate = new Date(vacation.startDate);
-                const endDate = new Date(vacation.endDate);
-                return startDate <= today && endDate >= today;
-            });
-
-        } catch (error) {
-            console.error("Error fetching active vacations:", error);
-            throw error;
-        }
+        const vacations = await this.getAllVacations();
+        const today = new Date();
+        return vacations.filter((vacation: VacationModel) => {
+            const startDate = new Date(vacation.startDate);
+            const endDate = new Date(vacation.endDate);
+            return startDate <= today && endDate >= today;
+        });
     }
-
 
     // Favorite Vacations:
     public async getFavoriteVacations(userId: number): Promise<VacationModel[]> {
         try {
-            // Get favorite vacation IDs from LikesService
             const favoriteVacationIds = await likesService.getFavoriteVacations(userId);
-
-            // Fetch all vacations
-            const vacationsResponse = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
-            if (!vacationsResponse.ok) throw new Error(`Failed to fetch vacations: ${vacationsResponse.statusText}`);
-            const vacations: VacationModel[] = await vacationsResponse.json(); // Ensure correct type
-
-            // Filter vacations by matching IDs from likes
+            const vacations = await this.getAllVacations(); // Get all vacations from local storage
             return vacations.filter((vacation: VacationModel) => favoriteVacationIds.includes(vacation.id));
         } catch (error) {
             console.error("Error fetching favorite vacations:", error);
@@ -122,17 +108,15 @@ class VacationsService {
         }
     }
 
-
     // Add Vacation:
     public async addVacation(vacation: VacationModel): Promise<void> {
         try {
             const action = vacationActionCreators.addOne(vacation);
             appStore.dispatch(action);
 
-            // Save to local storage
-            const currentVacations = this.getAllVacationsFromLocalStorage(); // Retrieve current vacations
-            currentVacations.push(vacation); // Add the new vacation
-            localStorage.setItem('vacations', JSON.stringify(currentVacations)); // Save updated vacations to local storage
+            const currentVacations = this.getAllVacationsFromLocalStorage();
+            currentVacations.push(vacation);
+            this.saveVacationsToLocalStorage(currentVacations); // Save updated vacations to local storage
 
         } catch (error) {
             console.error("Error adding vacation:", error);
@@ -146,10 +130,9 @@ class VacationsService {
             const action = vacationActionCreators.updateOne(vacation);
             appStore.dispatch(action);
 
-            // Update local storage
             const currentVacations = this.getAllVacationsFromLocalStorage();
             const updatedVacations = currentVacations.map(v => v.id === vacation.id ? vacation : v);
-            localStorage.setItem('vacations', JSON.stringify(updatedVacations)); // Save updated vacations to local storage
+            this.saveVacationsToLocalStorage(updatedVacations); // Save updated vacations to local storage
 
         } catch (error) {
             console.error("Error updating vacation:", error);
@@ -163,17 +146,15 @@ class VacationsService {
             const action = vacationActionCreators.deleteOne(id);
             appStore.dispatch(action);
 
-            // Update local storage
             const currentVacations = this.getAllVacationsFromLocalStorage();
-            const updatedVacations = currentVacations.filter(v => v.id !== id); // Remove the deleted vacation
-            localStorage.setItem('vacations', JSON.stringify(updatedVacations)); // Save updated vacations to local storage
+            const updatedVacations = currentVacations.filter(v => v.id !== id);
+            this.saveVacationsToLocalStorage(updatedVacations); // Save updated vacations to local storage
 
         } catch (error) {
             console.error("Error deleting vacation:", error);
             throw error;
         }
     }
-
 }
 
 export const vacationsService = new VacationsService();

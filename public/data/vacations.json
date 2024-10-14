@@ -132,7 +132,7 @@
         "startDate": "2024-12-14",
         "endDate": "2024-12-24",
         "price": 1300.0,
-        "imageUrl": "./Assets/vacations/tel-aviv.png"
+        "imageUrl": "/Assets/vacations/tel-aviv.png"
     },
     {
         "id": 16,
@@ -141,6 +141,6 @@
         "startDate": "2025-01-01",
         "endDate": "2025-01-10",
         "price": 1100.0,
-        "imageUrl": "./Assets/vacations/seoul.png"
+        "imageUrl": "/Assets/vacations/seoul.png"
     }
 ]

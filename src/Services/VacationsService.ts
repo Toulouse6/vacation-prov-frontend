@@ -20,7 +20,6 @@ class VacationsService {
             const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
             vacations = await response.json();
 
-            // Ensure that dates are properly parsed and handle invalid date values
             vacations = vacations.map((vacation: VacationModel) => ({
                 ...vacation,
                 startDate: this.parseValidDate(vacation.startDate),

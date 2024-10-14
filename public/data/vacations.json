@@ -1,56 +1,146 @@
 [
     {
+        "id": 1,
+        "destination": "Amsterdam",
+        "description": "Experience the vibrant canals of Amsterdam.",
+        "startDate": "2024-06-01",
+        "endDate": "2024-06-07",
+        "price": 1200.0,
+        "imageUrl": "/Assets/vacations/amsterdam.png"
+    },
+    {
         "id": 2,
-        "destination": "Paris",
-        "description": "Indulge in Parisian allure with exquisite art, culinary delights, and the Eiffel Tower's timeless grace on a romantic getaway.",
-        "start_date": "2024-03-29",
-        "end_date": "2024-04-10",
-        "price": 800.0,
-        "image_url": "b4b1827c-dd2f-4f1a-ac9e-3e3a411ced64.PNG"
+        "destination": "Jerusalem",
+        "description": "Discover the ancient streets of Jerusalem.",
+        "startDate": "2024-06-10",
+        "endDate": "2024-06-15",
+        "price": 1100.0,
+        "imageUrl": "/Assets/vacations/jerusalem.png"
     },
     {
         "id": 3,
-        "destination": "London",
-        "description": "Immerse in London's rich history, royal elegance, and cosmopolitan energy, discovering iconic landmarks and diverse cultural treasures.",
-        "start_date": "2024-03-21",
-        "end_date": "2024-03-31",
-        "price": 790.0,
-        "image_url": "670b506a-dd7e-4f8e-923b-a8701d07bf5e.png"
+        "destination": "Miami",
+        "description": "Savor the sun-soaked vibes of Miami's glamorous beaches.",
+        "startDate": "2024-06-20",
+        "endDate": "2024-06-25",
+        "price": 900.0,
+        "imageUrl": "/Assets/vacations/miami.png"
     },
     {
         "id": 4,
-        "destination": "New York",
-        "description": "Dive into the vibrant energy of NYC, where skyscrapers, Broadway lights, and Central Park beckon for an unforgettable urban adventure.",
-        "start_date": "2024-03-25",
-        "end_date": "2024-03-29",
-        "price": 990.0,
-        "image_url": "cb29203b-8dd4-4b60-9c96-6a37ba5f6f0e.PNG"
+        "destination": "Samui",
+        "description": "Relax on the beautiful beaches of Koh Samui.",
+        "startDate": "2024-07-01",
+        "endDate": "2024-07-10",
+        "price": 950.0,
+        "imageUrl": "/Assets/vacations/samui.png"
     },
     {
         "id": 5,
-        "destination": "Ko Phangan",
-        "description": "Escape to Thailand's tropical paradise, where golden beaches, lush jungles, and vibrant markets invite you to embrace exotic beauty and serenity.",
-        "start_date": "2024-03-06",
-        "end_date": "2024-03-19",
-        "price": 980.0,
-        "image_url": "e72c84cc-44dd-43b7-9d5f-5e9e2e7dd1c1.PNG"
+        "destination": "Tokyo",
+        "description": "Experience the bustling city life in Tokyo.",
+        "startDate": "2024-07-15",
+        "endDate": "2024-07-22",
+        "price": 1500.0,
+        "imageUrl": "/Assets/vacations/tokyo.png"
+    },
+    {
+        "id": 6,
+        "destination": "Athens",
+        "description": "Explore the historical ruins of Athens.",
+        "startDate": "2024-08-01",
+        "endDate": "2024-08-10",
+        "price": 1200.0,
+        "imageUrl": "/Assets/vacations/athens.png"
     },
     {
         "id": 7,
-        "destination": "Miami",
-        "description": "Savor the sun-soaked vibes of Miami's glamorous beaches, vibrant nightlife, and eclectic culture for an unforgettable tropical escape.",
-        "start_date": "2024-03-29",
-        "end_date": "2024-04-06",
-        "price": 900.0,
-        "image_url": "4ad9332d-9b47-4549-9d53-3983d9641e71.jpeg"
+        "destination": "Kenya",
+        "description": "Experience the wildlife of Kenya.",
+        "startDate": "2024-08-15",
+        "endDate": "2024-08-22",
+        "price": 2000.0,
+        "imageUrl": "/Assets/vacations/kenya.png"
     },
     {
         "id": 8,
-        "destination": "Hong Kong",
-        "description": "Discover the dynamic blend of tradition and modernity in Hong Kong, where skyscrapers, vibrant markets, and rich history create an unforgettable urban experience.",
-        "start_date": "2024-05-08",
-        "end_date": "2024-05-24",
-        "price": 950.0,
-        "image_url": "1a4da2fb-05cc-49ee-ab17-afbf197c5dd9.jpeg"
+        "destination": "Barcelona",
+        "description": "Discover the architecture and culture of Barcelona.",
+        "startDate": "2024-09-01",
+        "endDate": "2024-09-10",
+        "price": 1300.0,
+        "imageUrl": "/Assets/vacations/barcelona.png"
+    },
+    {
+        "id": 9,
+        "destination": "Lisbon",
+        "description": "Explore the vibrant streets of Lisbon.",
+        "startDate": "2024-09-15",
+        "endDate": "2024-09-22",
+        "price": 1100.0,
+        "imageUrl": "/Assets/vacations/lisbon.png"
+    },
+    {
+        "id": 10,
+        "destination": "Petra",
+        "description": "Visit the ancient city of Petra in Jordan.",
+        "startDate": "2024-09-30",
+        "endDate": "2024-10-09",
+        "price": 1600.0,
+        "imageUrl": "/Assets/vacations/petra.png"
+    },
+    {
+        "id": 11,
+        "destination": "Sydney",
+        "description": "Enjoy the sights of Sydney, Australia.",
+        "startDate": "2024-10-14",
+        "endDate": "2024-10-24",
+        "price": 1700.0,
+        "imageUrl": "/Assets/vacations/sydney.png"
+    },
+    {
+        "id": 12,
+        "destination": "Berlin",
+        "description": "Discover the history and culture of Berlin.",
+        "startDate": "2024-10-31",
+        "endDate": "2024-11-09",
+        "price": 1400.0,
+        "imageUrl": "/Assets/vacations/berlin.png"
+    },
+    {
+        "id": 13,
+        "destination": "London",
+        "description": "Visit the iconic landmarks of London.",
+        "startDate": "2024-11-14",
+        "endDate": "2024-11-21",
+        "price": 1500.0,
+        "imageUrl": "/Assets/vacations/london.png"
+    },
+    {
+        "id": 14,
+        "destination": "Phangan",
+        "description": "Experience the beauty of Koh Phangan.",
+        "startDate": "2024-11-30",
+        "endDate": "2024-12-09",
+        "price": 900.0,
+        "imageUrl": "/Assets/vacations/phangan.png"
+    },
+    {
+        "id": 15,
+        "destination": "Tel Aviv",
+        "description": "Enjoy the vibrant culture and beaches of Tel Aviv.",
+        "startDate": "2024-12-14",
+        "endDate": "2024-12-24",
+        "price": 1300.0,
+        "imageUrl": "./Assets/vacations/tel-aviv.png"
+    },
+    {
+        "id": 16,
+        "destination": "Seoul",
+        "description": "Explore the bustling streets of Seoul.",
+        "startDate": "2025-01-01",
+        "endDate": "2025-01-10",
+        "price": 1100.0,
+        "imageUrl": "./Assets/vacations/seoul.png"
     }
 ]

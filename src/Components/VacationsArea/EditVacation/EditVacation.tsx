@@ -10,10 +10,10 @@ import useTitle from "../../../Utils/UseTitle";
 
 function EditVacation(): JSX.Element {
 
-    // Hook to page title:
+    // Hook page title:
     useTitle("Vacation Provocation | Edit");
 
-    // Setup form handling with react-hook-form:
+    // Setup React-hook-form:
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<VacationModel>();
     const navigate = useNavigate();
     const params = useParams();
@@ -40,10 +40,10 @@ function EditVacation(): JSX.Element {
                 })
                 .catch(err => notify.error(err.message));
         }
-    }, [params.id, setValue, setImageUrl]);  // Dependencies for the effect.
+    }, [params.id, setValue, setImageUrl]);  
 
 
-    // This keeps track of the 'startDate' field:
+    // Track 'startDate':
     const startDate = watch("startDate");
 
 
@@ -52,7 +52,7 @@ function EditVacation(): JSX.Element {
         try {
             setLoading(true);
 
-            // Assign first image file to vacation.image:
+            // Assign image file to vacation.image:
             vacation.image = (vacation.image as unknown as FileList)[0];
             vacation.id = +params.id;
             await vacationsService.editVacation(vacation);
@@ -74,7 +74,6 @@ function EditVacation(): JSX.Element {
             <h1>Edit Destination {params.id}</h1>
             <NavLink className="GoBack" to="/vacations">⇠ Go back</NavLink>
 
-            {/* Form submission to use handleSubmit to invoke 'send' */}
             <form onSubmit={handleSubmit(send)}>
 
                 <label htmlFor="destination">Destination:</label>
@@ -84,7 +83,7 @@ function EditVacation(): JSX.Element {
                         minLength: { value: 2, message: "Destination requires a minimum of 2 characters." },
                         maxLength: { value: 50, message: "Destination should not exceed 50 characters." }
                     })} />
-                {/* Display errors related to the each field */}
+       
                 {errors.destination && <p className="error">{String(errors.destination.message)}</p>}
 
                 <label htmlFor="description">Description:</label>

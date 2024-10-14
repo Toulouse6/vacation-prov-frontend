@@ -11,10 +11,8 @@ class LikesService {
             const likeExists = likes.some((like) => like.user_id === userId && like.vacation_id === vacationId);
 
             if (likeExists) {
-                // Remove like
                 this.removeLike(userId, vacationId);
             } else {
-                // Add like
                 this.addLike(userId, vacationId);
             }
         } catch (error) {
@@ -53,12 +51,12 @@ class LikesService {
     public async getVacationsWithLikes(): Promise<any[]> {
         const likes = this.getLikesFromLocalStorage();
         const report = likes.reduce((acc: { [key: number]: number }, like) => {
-            acc[like.vacation_id] = (acc[like.vacation_id] || 0) + 1; // Count likes per vacation
+            acc[like.vacation_id] = (acc[like.vacation_id] || 0) + 1;  
             return acc;
         }, {});
     
         // Fetch all vacations to match IDs
-        const vacations = await vacationsService.getAllVacations(); // Call the method from VacationsService
+        const vacations = await vacationsService.getAllVacations();  
         return Object.entries(report).map(([vacationId, likeCount]) => {
             const vacation = vacations.find(v => v.id === Number(vacationId));
             return {

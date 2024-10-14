@@ -14,7 +14,7 @@ function AuthMenu(): JSX.Element {
     const navigate = useNavigate();
 
 
-    // Function to handle logout
+    // Handle logout
     function logMeOut(): void {
         notify.success(`Bye bye ${user.firstName}...`);
         authService.logout();

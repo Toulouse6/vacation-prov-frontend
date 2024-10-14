@@ -7,36 +7,35 @@ import "./AddVacation.css";
 import { useState } from "react";
 import useTitle from "../../../Utils/UseTitle";
 
-// Function to generate a unique ID
+// Generate a unique ID
 const generateUniqueId = () => Math.floor(Math.random() * 1000000);
 
 function AddVacation(): JSX.Element {
 
-    // Hook to page title:
+    // Hook page title:
     useTitle("Vacation Provocation | Add");
 
-    // Setup useForm with validation for VacationModel
+    // Setup useForm validation
     const { register, handleSubmit, watch, formState: { errors } } = useForm<VacationModel>();
     const navigate = useNavigate();
 
-    // State for storing the image URL:
     const [imageUrl, setImageUrl] = useState<string | undefined>();
 
-    // Watch startDate field to keep track of its value:
-    const startDate = watch("startDate"); // This keeps track of the 'startDate' field
+    // Watch startDate
+    const startDate = watch("startDate");
 
-    // Const current date split by 'T' to use only date:
+    // 'T' to use only date:
     const currentDate = new Date().toISOString().split('T')[0];
 
     async function send(vacation: VacationModel) {
         try {
-            // Assign a unique ID
-            vacation.id = generateUniqueId(); // Ensure you assign the ID here
+            // Assign unique ID
+            vacation.id = generateUniqueId(); 
 
             // Handle the image file
-            const imageFile = (vacation.image as unknown as FileList)[0]; // Get the first file
+            const imageFile = (vacation.image as unknown as FileList)[0];  
             if (imageFile) {
-                vacation.image = imageFile; // Assign the image file to the vacation
+                vacation.image = imageFile;  
             }
 
             // Call the service to add a new vacation:
@@ -54,7 +53,6 @@ function AddVacation(): JSX.Element {
             <h1>Add Destination</h1>
             <NavLink className="GoBack" to="/vacations">⇠ Go back</NavLink>
 
-            {/* Form submission to use handleSubmit to invoke 'send' */}
             <form onSubmit={handleSubmit(send)}>
 
                 <label htmlFor="destination">Destination:</label>
@@ -64,7 +62,7 @@ function AddVacation(): JSX.Element {
                         minLength: { value: 2, message: "Destination requires a minimum of 2 characters." },
                         maxLength: { value: 50, message: "Destination should not exceed 50 characters." }
                     })} />
-                {/* Display errors related to the each field */}
+   
                 {errors.destination && <p className="error">{String(errors.destination.message)}</p>}
 
                 <label htmlFor="description">Description:</label>

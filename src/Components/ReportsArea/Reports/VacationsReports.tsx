@@ -5,10 +5,10 @@ import './VacationsReports.css';
 import { NavLink } from 'react-router-dom';
 import useTitle from '../../../Utils/UseTitle';
 
-// Import CanvasJSChart from CanvasJSReact for rendering charts
+// CanvasJSReact charts:
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-// Define a type for the data points
+// Data points
 interface DataPoint {
     label: string;
     y: number;
@@ -16,7 +16,7 @@ interface DataPoint {
 
 const VacationsReports = () => {
 
-    // Hook to page title:
+    // Hook page title:
     useTitle("Vacation Provocation | Reports");
 
     // State to store the data points for the chart
@@ -32,13 +32,13 @@ const VacationsReports = () => {
                     y: item.likesCount
                 }));
 
-                // Update the state with the processed data points
+                // Update state 
                 setDataPoints(points);
             })
             .catch((error: Error) => {
                 console.error('Error fetching vacations with likes:', error);
             });
-    }, []); // [] means the effect runs only once
+    }, []);  
 
     // Chart options & css
     const options = {

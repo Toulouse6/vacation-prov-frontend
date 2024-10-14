@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "username": "Ollie Davenport",
+        "password": "Ollie",
+        "email": "meetollie@gmail.com",
+        "role": 1,
+        "token": "8705d822002891c347545a71e0792214eea437058cdf31a1bb4fcfea936910d23615b33b77d70fa8232b676d027ac093cee24d0048be9c5498638e369226f7b3"
+    },
+    {
+        "id": 2,
+        "username": "Tal Argaman",
+        "email": "tal.argamanbib@gmail.com",
+        "password": "Tal",
+        "role": 2,
+        "token": "1cbc36be51bf253f926716dda2dc0ba8509ab4d11d4f9bebf622969ace4bcc5efc1beb1ba4d9fd60727a7ed694bc6cf6482ba19eaa9f7174bc2edd0c4ff7e945"
+    },
+    {
+        "id": 3,
+        "username": "Itay",
+        "password": "Itay",
+        "email": "itay.aharoni@gmail.com",
+        "role": 2,
+        "token": "1cbc36be51bf253f926716dda2dc0ba8509ab4d11d4f9bebf622969ace4bcc5efc1beb1ba4d9fd60727a7ed694bc6cf6482ba19eaa9f7174bc2edd0c4ff7e945"
+    }
+]

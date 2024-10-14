@@ -1,29 +1,33 @@
-import axios from "axios";
 import VacationModel from "../Models/VacationModel";
 import { appStore } from "../Redux/Store";
-import { appConfig } from "../Utils/AppConfig";
 import { vacationActionCreators } from "../Redux/VacationSlice";
 
-
 class VacationsService {
+
+    // Validate & parse dates
+    private parseValidDate(dateString: string): Date | null {
+        const parsedDate = new Date(dateString);
+        return isNaN(parsedDate.getTime()) ? null : parsedDate;
+    }
 
     // Get all vacations:
     public async getAllVacations(): Promise<VacationModel[]> {
         try {
-
-            // Get vacations from the app store state:
             let vacations = appStore.getState().vacations;
 
-            // Checks for vacations in the appStore state:
             if (vacations.length > 0) return vacations;
 
-            const response = await axios.get<VacationModel[]>(appConfig.vacationsUrl);
-            vacations = response.data;
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
+            vacations = await response.json();
 
-            // Initialize all vacations in the appStore state:
+            // Ensure that dates are properly parsed and handle invalid date values
+            vacations = vacations.map((vacation: VacationModel) => ({
+                ...vacation,
+                startDate: this.parseValidDate(vacation.startDate),
+                endDate: this.parseValidDate(vacation.endDate),
+            }));
+
             const action = vacationActionCreators.initAll(vacations);
-
-            // Dispatch the created action to update the appStore state
             appStore.dispatch(action);
             return vacations;
 
@@ -33,20 +37,23 @@ class VacationsService {
         }
     }
 
-
     // Get one vacation:
     public async getOneVacation(id: number): Promise<VacationModel> {
         try {
             let vacations = appStore.getState().vacations;
-
-            // Find specified vacation.id array:
             let vacation = vacations.find((v) => v.id === id);
 
             if (vacation) return vacation;
 
-            // Fetch specific vacation.id from vacationsUrl endpoint:
-            const response = await axios.get<VacationModel>(`${appConfig.vacationsUrl}/${id}`);
-            vacation = response.data;
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
+            vacations = await response.json();
+            vacation = vacations.find((v) => v.id === id);
+
+            if (vacation) {
+                vacation.startDate = new Date(vacation.startDate);
+                vacation.endDate = new Date(vacation.endDate);
+            }
+
             return vacation;
 
         } catch (error) {
@@ -55,13 +62,16 @@ class VacationsService {
         }
     }
 
-
     // Upcoming Vacations:
     public async getUpcomingVacations(): Promise<VacationModel[]> {
         try {
-            // Fetch upcoming vacations from upcomingUrl endpoint:
-            const response = await axios.get<VacationModel[]>(appConfig.upcomingUrl);
-            return response.data;
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
+            const vacations = await response.json();
+
+            return vacations.filter((vacation: VacationModel) => {
+                const startDate = new Date(vacation.startDate);
+                return startDate > new Date();
+            });
 
         } catch (error) {
             console.error("Error fetching upcoming vacations:", error);
@@ -69,13 +79,18 @@ class VacationsService {
         }
     }
 
-
     // Active Vacations:
     public async getActiveVacations(): Promise<VacationModel[]> {
         try {
-            // Fetch active vacations from upcomingUrl endpoint:
-            const response = await axios.get<VacationModel[]>(appConfig.activeUrl);
-            return response.data;
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
+            const vacations = await response.json();
+            const today = new Date();
+
+            return vacations.filter((vacation: VacationModel) => {
+                const startDate = new Date(vacation.startDate);
+                const endDate = new Date(vacation.endDate);
+                return startDate <= today && endDate >= today;
+            });
 
         } catch (error) {
             console.error("Error fetching active vacations:", error);
@@ -83,32 +98,48 @@ class VacationsService {
         }
     }
 
-
-    // Get Favorite Vacations:
+    // Favorite Vacations:
     public async getFavoriteVacations(userId: number): Promise<VacationModel[]> {
+        try {
+            // Fetch the likes.json file
+            const likesResponse = await fetch(`${process.env.PUBLIC_URL}/data/likes.json`);
 
-        // Fetch favorite vacations for specific userId from favoritesUrl endpoint:
-        const url = `${appConfig.favoritesUrl}/${userId}`;
-        const response = await axios.get<VacationModel[]>(url);
-        return response.data;
+            // Check if the response is OK
+            if (!likesResponse.ok) {
+                throw new Error(`Failed to fetch likes: ${likesResponse.statusText}`);
+            }
+
+            const likes = await likesResponse.json();
+
+            // Fetch the vacations.json file
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
+
+            // Check if the response is OK
+            if (!response.ok) {
+                throw new Error(`Failed to fetch vacations: ${response.statusText}`);
+            }
+
+            const vacations = await response.json();
+
+            // Filter likes to match the current user
+            const favoriteVacationIds = likes
+                .filter((like: any) => like.user_id === userId)
+                .map((like: any) => like.vacation_id);
+
+            // Filter vacations by matching IDs from likes
+            return vacations.filter((vacation: VacationModel) => favoriteVacationIds.includes(vacation.id));
+
+        } catch (error) {
+            console.error("Error fetching favorite vacations:", error);
+            throw error;
+        }
     }
 
 
-    // Add vacation:
+    // Add Vacation:
     public async addVacation(vacation: VacationModel): Promise<void> {
         try {
-            // POST request to add a new vacation to vacationsUrl containing custom options:
-            const response = await axios.post<VacationModel>(
-                appConfig.vacationsUrl,
-                vacation,
-                appConfig.axiosOptions
-            );
-            const addedVacation = response.data;
-
-            // Uses vacationActionCreators to add a new vacation to appStore state:
-            const action = vacationActionCreators.addOne(addedVacation);
-
-            // Update state:
+            const action = vacationActionCreators.addOne(vacation);
             appStore.dispatch(action);
 
         } catch (error) {
@@ -117,20 +148,10 @@ class VacationsService {
         }
     }
 
-
-    // Edit vacation:
+    // Edit Vacation:
     public async editVacation(vacation: VacationModel): Promise<void> {
         try {
-            // PUT request to edit a vacation by id containing custom options:
-            const response = await axios.put<VacationModel>(
-                `${appConfig.vacationsUrl}/${vacation.id}`,
-                vacation,
-                appConfig.axiosOptions
-            );
-            const updatedVacation = response.data;
-
-            // Uses vacationActionCreators to edit a specific vacation in appStore state:
-            const action = vacationActionCreators.updateOne(updatedVacation);
+            const action = vacationActionCreators.updateOne(vacation);
             appStore.dispatch(action);
 
         } catch (error) {
@@ -139,14 +160,9 @@ class VacationsService {
         }
     }
 
-
-    // Delete vacation:
+    // Delete Vacation:
     public async deleteVacation(id: number): Promise<void> {
         try {
-            // DELETE request to remove a specific vacation by id:
-            await axios.delete(`${appConfig.vacationsUrl}/${id}`);
-
-            // Edit a specific vacation in appStore state:
             const action = vacationActionCreators.deleteOne(id);
             appStore.dispatch(action);
 
@@ -155,8 +171,6 @@ class VacationsService {
             throw error;
         }
     }
-
-
 }
 
 export const vacationsService = new VacationsService();

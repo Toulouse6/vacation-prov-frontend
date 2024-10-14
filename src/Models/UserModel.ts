@@ -1,5 +1,4 @@
 class UserModel {
-
     public id: number;
     public firstName: string;
     public lastName: string;
@@ -7,9 +6,18 @@ class UserModel {
     public password: string;
     public roleId: number;
     public isAuthenticated: boolean;
-    userRole: string;
+    public token: string;
 
-    constructor(id: number, firstName: string, lastName: string, email: string, password: string, roleId: number, isAuthenticated: boolean) {
+    constructor(
+        id: number,
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+        roleId: number,
+        isAuthenticated: boolean,
+        token: string
+    ) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -17,8 +25,8 @@ class UserModel {
         this.password = password;
         this.roleId = roleId;
         this.isAuthenticated = isAuthenticated;
+        this.token = token;
     }
-
 }
 
 export default UserModel;

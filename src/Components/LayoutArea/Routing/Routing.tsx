@@ -8,7 +8,6 @@ import Login from "../../AuthArea/Login/Login";
 import EditVacation from "../../VacationsArea/EditVacation/EditVacation";
 import VacationsReports from "../../ReportsArea/Reports/VacationsReports";
 
-
 function Routing(): JSX.Element {
 
     return (

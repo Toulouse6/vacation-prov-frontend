@@ -1,66 +1,76 @@
-import axios from "axios";
 import UserModel from "../Models/UserModel";
-import { appConfig } from "../Utils/AppConfig";
-import { jwtDecode } from "jwt-decode";
+import CredentialsModel from "../Models/CredentialsModel";
 import { appStore } from "../Redux/Store";
 import { authActionCreators } from "../Redux/AuthSlice";
-import CredentialsModel from "../Models/CredentialsModel";
 
 class AuthService {
-
     // Constructor:
     public constructor() {
-
-        // Get token from local storage: 
+        // Get token from session storage:
         const token = sessionStorage.getItem("token");
 
         if (token) {
-            // Extract the user from the token: 
-            const loggedInUser = jwtDecode<{ user: UserModel }>(token).user;
+            // Simulate extracting the user from session storage
+            const loggedInUser = JSON.parse(sessionStorage.getItem("user") as string) as UserModel;
 
-            // Update global state: 
+            // Update global state:
             appStore.dispatch(authActionCreators.login(loggedInUser));
         }
     }
 
+    // Simulate registering a new user:
+    public async register(newUser: UserModel): Promise<void> {
+        // Mock users data (for testing purposes):
+        const users = [
+            { id: 1, firstName: "Ollie", lastName: "Davenport", email: "meetollie@gmail.com", password: "1234", roleId: 1, isAuthenticated: true, token: "dummy-token" },
+            { id: 1, firstName: "Tal", lastName: "Argaman", email: "tal.argamanbib@gmail.com", password: "argaman", roleId: 2, isAuthenticated: true, token: "dummy-token" },
+            { id: 2, firstName: "Itay", lastName: "Aharoni", email: "itay.aharoni@gmail.com", password: "aharoni", roleId: 2, isAuthenticated: true, token: "dummy-token" }
+        ];
 
-    // Register a new user: 
-    public async register(user: UserModel): Promise<void> {
+        // Check if the user already exists:
+        const existingUser = users.find((user) => user.email === newUser.email);
+        if (existingUser) {
+            throw new Error("User already exists");
+        }
 
-        // Send the new user to backend: 
-        const response = await axios.post<string>(appConfig.registerUrl, user);
+        // Simulate adding new user (not persistent)
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users)); // Store updated users locally
 
-        // Extract the JWT token:
-        const token = response.data;
-
-        // Extract the user from the token: 
-        const registeredUser = jwtDecode<{ user: UserModel }>(token).user;
-
-        // Update global state: 
-        appStore.dispatch(authActionCreators.register(registeredUser));
-
-        // Save the token in the local storage: 
+        // Simulate token generation and save to session storage
+        const token = "dummy-token";
         sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(newUser));
+
+        // Update global state:
+        appStore.dispatch(authActionCreators.register(newUser));
     }
 
-
-    // Login existing user:
+    // Simulate logging in an existing user:
     public async login(credentials: CredentialsModel): Promise<void> {
+        // Mock users data (for testing purposes):
+        const users: UserModel[] = [
+            { id: 1, firstName: "Ollie", lastName: "Davenport", email: "meetollie@gmail.com", password: "1234", roleId: 1, isAuthenticated: true, token: "dummy-token" },
+            { id: 1, firstName: "Tal", lastName: "Argaman", email: "tal.argamanbib@gmail.com", password: "argaman", roleId: 2, isAuthenticated: true, token: "dummy-token" },
+            { id: 2, firstName: "Itay", lastName: "Aharoni", email: "itay.aharoni@gmail.com", password: "aharoni", roleId: 2, isAuthenticated: true, token: "dummy-token" }
+        ];
 
-        // Send the credentials to backend: 
-        const response = await axios.post<string>(appConfig.loginUrl, credentials);
+        // Find the user by email and password
+        const user = users.find(
+            (u: UserModel) => u.email === credentials.email && u.password === credentials.password
+        );
 
-        // Extract the JWT token:
-        const token = response.data;
+        if (!user) {
+            throw new Error("Invalid email or password");
+        }
 
-        // Extract the user from the token: 
-        const loggedInUser = jwtDecode<{ user: UserModel }>(token).user;
-
-        // Update global state: 
-        appStore.dispatch(authActionCreators.login(loggedInUser));
-
-        // Save the token in the local storage: 
+        // Simulate token generation and store in session storage
+        const token = user.token; // Using the pre-defined token in `users.json`
         sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(user));
+
+        // Update global state (explicit cast to UserModel):
+        appStore.dispatch(authActionCreators.login(user as UserModel));  // Cast user to UserModel here
     }
 
 
@@ -68,9 +78,8 @@ class AuthService {
     public logout(): void {
         appStore.dispatch(authActionCreators.logout());
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
     }
-
-
 }
 
 export const authService = new AuthService();

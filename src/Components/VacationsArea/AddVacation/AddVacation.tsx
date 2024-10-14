@@ -7,19 +7,20 @@ import "./AddVacation.css";
 import { useState } from "react";
 import useTitle from "../../../Utils/UseTitle";
 
+// Function to generate a unique ID
+const generateUniqueId = () => Math.floor(Math.random() * 1000000);
+
 function AddVacation(): JSX.Element {
 
     // Hook to page title:
     useTitle("Vacation Provocation | Add");
 
-
     // Setup useForm with validation for VacationModel
     const { register, handleSubmit, watch, formState: { errors } } = useForm<VacationModel>();
-
     const navigate = useNavigate();
 
     // State for storing the image URL:
-    const [imageUrl] = useState<string | undefined>();
+    const [imageUrl, setImageUrl] = useState<string | undefined>();
 
     // Watch startDate field to keep track of its value:
     const startDate = watch("startDate"); // This keeps track of the 'startDate' field
@@ -27,23 +28,25 @@ function AddVacation(): JSX.Element {
     // Const current date split by 'T' to use only date:
     const currentDate = new Date().toISOString().split('T')[0];
 
-
     async function send(vacation: VacationModel) {
         try {
-            // Assign first image file to vacation.image:
-            vacation.image = (vacation.image as unknown as FileList)[0];
+            // Assign a unique ID
+            vacation.id = generateUniqueId(); // Ensure you assign the ID here
+
+            // Handle the image file
+            const imageFile = (vacation.image as unknown as FileList)[0]; // Get the first file
+            if (imageFile) {
+                vacation.image = imageFile; // Assign the image file to the vacation
+            }
 
             // Call the service to add a new vacation:
             await vacationsService.addVacation(vacation);
             notify.success("Vacation has been added.");
             navigate("/vacations");
-        }
-
-        catch (err: any) {
+        } catch (err: any) {
             notify.error(`Failed to update vacation: ${err.message}`);
         }
     }
-
 
     return (
         <div className="AddVacation">
@@ -53,7 +56,6 @@ function AddVacation(): JSX.Element {
 
             {/* Form submission to use handleSubmit to invoke 'send' */}
             <form onSubmit={handleSubmit(send)}>
-
 
                 <label htmlFor="destination">Destination:</label>
                 <input type="text" id="destination" className="form-control" {...register("destination",
@@ -78,17 +80,14 @@ function AddVacation(): JSX.Element {
                 <input type="date" id="startDate" className="form-control" {...register("startDate", {
                     required: "Start date is required.",
                     validate: value => value >= currentDate || "Start date cannot be in the past."
-                })}
-                />
+                })} />
                 {errors.startDate && <p className="error">{errors.startDate.message}</p>}
-
 
                 <label htmlFor="endDate">Ends On:</label>
                 <input type="date" id="endDate" className="form-control" {...register("endDate", {
                     required: "End date is required.",
                     validate: endDate => endDate >= startDate || "End date must be later than the start date."
-                })}
-                />
+                })} />
                 {errors.endDate && <p className="error">{errors.endDate.message}</p>}
 
                 <label htmlFor="price">Price:</label>
@@ -105,8 +104,15 @@ function AddVacation(): JSX.Element {
                     <img src={imageUrl} alt="Current Vacation" className="current-image" />
                 )}
 
-                <input className="form-control" type="file" {...register("image",
-                    { required: "Image is required." })} />
+                <input className="form-control" type="file" accept="image/*" {...register("image", {
+                    required: "Image is required.",
+                    onChange: (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            setImageUrl(URL.createObjectURL(file)); // Set the image URL for preview
+                        }
+                    }
+                })} />
                 {errors.image && <p className="error">{String(errors.image.message)}</p>}
 
                 <button className="btn btn-outline-secondary">Add Vacation</button>
@@ -115,10 +121,6 @@ function AddVacation(): JSX.Element {
 
         </div>
     );
-
-
 }
 
 export default AddVacation;
-
-

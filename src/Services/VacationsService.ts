@@ -25,27 +25,34 @@ class VacationsService {
     // Get all vacations:
     public async getAllVacations(): Promise<VacationModel[]> {
         const localVacations = this.getAllVacationsFromLocalStorage();
-        if (localVacations.length > 0) return localVacations;
-
+        console.log("Local Vacations: ", localVacations); // Log local vacations
+    
+        if (localVacations.length > 0) {
+            return localVacations;
+        }
+    
         try {
             const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
             let vacations = await response.json();
+            console.log("Fetched Vacations: ", vacations); // Log fetched vacations
+    
             vacations = vacations.map((vacation: VacationModel) => ({
                 ...vacation,
                 startDate: this.parseValidDate(vacation.startDate),
                 endDate: this.parseValidDate(vacation.endDate),
             }));
-
+    
             const action = vacationActionCreators.initAll(vacations);
             appStore.dispatch(action);
-            this.saveVacationsToLocalStorage(vacations); 
+            this.saveVacationsToLocalStorage(vacations); // Save to local storage
             return vacations;
-
+    
         } catch (error) {
             console.error("Error fetching all vacations:", error);
             throw error;
         }
-    }
+    }    
+    
 
     // Get one vacation:
     public async getOneVacation(id: number): Promise<VacationModel | undefined> {

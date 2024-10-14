@@ -84,18 +84,17 @@ function VacationsList(): JSX.Element {
                     default:
                         data = await vacationsService.getAllVacations();
                 }
+                console.log("Fetched Vacations Data:", data); // Log fetched data
                 setVacations(data);
             } catch (error: any) {
                 notify.error(error.message);
             }
         };
-    
+
         if (user && user.id) {
             fetchVacations();
         }
     }, [filter, user]);
-    
-
 
 
     // Handling filter selection changes

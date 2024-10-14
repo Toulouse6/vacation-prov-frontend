@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/home/static/css/main.1ee3a4e4.css",
-    "main.js": "/home/static/js/main.b3ecd030.js",
-    "static/js/453.f373523a.chunk.js": "/home/static/js/453.f373523a.chunk.js",
-    "static/media/clouds-footage.mp4": "/home/static/media/clouds-footage.842dfc820718aae83340.mp4",
-    "static/media/bird1.gif": "/home/static/media/bird1.1cd98b7a1f86a3c09583.gif",
-    "static/media/peignot.regular.ttf": "/home/static/media/peignot.regular.3e9d906d826f93666081.ttf",
-    "static/media/island-1.png": "/home/static/media/island-1.124867c4ffa6c22644bf.png",
-    "index.html": "/home/index.html",
-    "main.1ee3a4e4.css.map": "/home/static/css/main.1ee3a4e4.css.map",
-    "main.b3ecd030.js.map": "/home/static/js/main.b3ecd030.js.map",
-    "453.f373523a.chunk.js.map": "/home/static/js/453.f373523a.chunk.js.map"
+    "main.css": "/vacation-prov-frontend/static/css/main.1a60bd59.css",
+    "main.js": "/vacation-prov-frontend/static/js/main.89be5047.js",
+    "static/js/453.f373523a.chunk.js": "/vacation-prov-frontend/static/js/453.f373523a.chunk.js",
+    "static/media/clouds-footage.mp4": "/vacation-prov-frontend/static/media/clouds-footage.842dfc820718aae83340.mp4",
+    "static/media/bird1.gif": "/vacation-prov-frontend/static/media/bird1.1cd98b7a1f86a3c09583.gif",
+    "static/media/peignot.regular.ttf": "/vacation-prov-frontend/static/media/peignot.regular.3e9d906d826f93666081.ttf",
+    "static/media/island-1.png": "/vacation-prov-frontend/static/media/island-1.124867c4ffa6c22644bf.png",
+    "index.html": "/vacation-prov-frontend/index.html",
+    "main.1a60bd59.css.map": "/vacation-prov-frontend/static/css/main.1a60bd59.css.map",
+    "main.89be5047.js.map": "/vacation-prov-frontend/static/js/main.89be5047.js.map",
+    "453.f373523a.chunk.js.map": "/vacation-prov-frontend/static/js/453.f373523a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ee3a4e4.css",
-    "static/js/main.b3ecd030.js"
+    "static/css/main.1a60bd59.css",
+    "static/js/main.89be5047.js"
   ]
 }

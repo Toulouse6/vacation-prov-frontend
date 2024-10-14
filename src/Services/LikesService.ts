@@ -1,5 +1,3 @@
-import axios from "axios";
-import { appConfig } from "../Utils/AppConfig";
 import LikesModel from "../Models/LikesModel";
 
 class LikesService {
@@ -7,58 +5,106 @@ class LikesService {
     // Toggle like
     public async toggleLike(userId: number, vacationId: number): Promise<void> {
         try {
-            // Check if the like exists by GET request to likesUrl endpoint:
-            const response = await axios.get(`${appConfig.likesUrl}/exists/${userId}/${vacationId}`);
-            const likeExists = response.data.exists;
+            // Fetch the likes from the local JSON file
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/likes.json`);
+            let likes: { user_id: number, vacation_id: number }[] = await response.json();
 
-            // If the like exists, remove it; otherwise, add like:
+            // Check if the like already exists
+            const likeExists = likes.some(like => like.user_id === userId && like.vacation_id === vacationId);
+
+            // If the like exists, remove it; otherwise, add it
             if (likeExists) {
-                await this.removeLike(userId, vacationId);
+                this.removeLike(userId, vacationId);
             } else {
-                await this.addLike(userId, vacationId);
+                this.addLike(userId, vacationId);
             }
-        }
-        catch (error) {
+
+        } catch (error) {
             console.error('Error toggling like:', error);
         }
     }
 
-
     // Add like
     public async addLike(userId: number, vacationId: number): Promise<void> {
+        try {
+            // Fetch the likes from the local JSON file
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/likes.json`);
+            const likes: { user_id: number, vacation_id: number }[] = await response.json();
 
-        // Send axios POST request to like specific vacation by a specific user:
-        await axios.post(`${appConfig.likesUrl}/${userId}/${vacationId}`);
+            // Simulate adding the new like
+            likes.push({ user_id: userId, vacation_id: vacationId });
+
+            // Save the updated likes to local storage (for simulation purposes)
+            localStorage.setItem("likes", JSON.stringify(likes));
+
+        } catch (error) {
+            console.error('Error adding like:', error);
+        }
     }
 
     // Remove like
     public async removeLike(userId: number, vacationId: number): Promise<void> {
+        try {
+            // Fetch the likes from the local JSON file
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/likes.json`);
+            let likes: { user_id: number, vacation_id: number }[] = await response.json();
 
-        // Send axios DELETE request to remove like for specific vacation by a specific user:
-        await axios.delete(`${appConfig.likesUrl}/${userId}/${vacationId}`);
+            // Filter out the like that matches the userId and vacationId
+            likes = likes.filter(like => like.user_id !== userId || like.vacation_id !== vacationId);
+
+            // Save the updated likes to local storage (for simulation purposes)
+            localStorage.setItem("likes", JSON.stringify(likes));
+
+        } catch (error) {
+            console.error('Error removing like:', error);
+        }
     }
 
     // Get user likes:
     public async getUserLikes(userId: number): Promise<LikesModel[]> {
+        try {
+            // Fetch the likes from the local JSON file
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/likes.json`);
+            const likes: { user_id: number, vacation_id: number }[] = await response.json();
 
-        // Fetch likes for a specific user:
-        const response = await axios.get(`${appConfig.likesUrl}/user/${userId}`);
-        return response.data;
+            // Map snake_case to camelCase for LikesModel
+            return likes
+                .filter(like => like.user_id === userId)
+                .map(like => new LikesModel(like.user_id, like.vacation_id));
+
+        } catch (error) {
+            console.error("Error fetching user likes:", error);
+            throw error;
+        }
     }
 
     // Get likes report:
     public async getVacationsWithLikes(): Promise<any[]> {
         try {
-            // Fetch specific likes for a report:
-            const response = await axios.get(`${appConfig.likesUrl}/reports`);
-            return response.data;
-        }
-        catch (error) {
-            console.error('Error fetching likes reports:', error);
-            throw new Error('Failed to fetch likes reports');
+            // Fetch the likes from the local JSON file
+            const response = await fetch(`${process.env.PUBLIC_URL}/data/likes.json`);
+            let likes: { user_id: number, vacation_id: number }[] = await response.json();
+
+            // Group vacations by their like count (for report)
+            const report = likes.reduce((acc: { [key: number]: number }, like) => {
+                if (!acc[like.vacation_id]) {
+                    acc[like.vacation_id] = 1;
+                } else {
+                    acc[like.vacation_id]++;
+                }
+                return acc;
+            }, {});
+
+            return Object.entries(report).map(([vacationId, likeCount]) => ({
+                vacationId: Number(vacationId),
+                likeCount
+            }));
+
+        } catch (error) {
+            console.error('Error fetching likes report:', error);
+            throw new Error('Failed to fetch likes report');
         }
     }
-
 
 }
 

@@ -1,0 +1,66 @@
+[
+    {
+        "user_id": 7,
+        "vacation_id": 2
+    },
+    {
+        "user_id": 8,
+        "vacation_id": 2
+    },
+    {
+        "user_id": 18,
+        "vacation_id": 2
+    },
+    {
+        "user_id": 25,
+        "vacation_id": 2
+    },
+    {
+        "user_id": 19,
+        "vacation_id": 3
+    },
+    {
+        "user_id": 20,
+        "vacation_id": 3
+    },
+    {
+        "user_id": 23,
+        "vacation_id": 3
+    },
+    {
+        "user_id": 8,
+        "vacation_id": 4
+    },
+    {
+        "user_id": 20,
+        "vacation_id": 4
+    },
+    {
+        "user_id": 24,
+        "vacation_id": 4
+    },
+    {
+        "user_id": 25,
+        "vacation_id": 4
+    },
+    {
+        "user_id": 4,
+        "vacation_id": 5
+    },
+    {
+        "user_id": 18,
+        "vacation_id": 5
+    },
+    {
+        "user_id": 23,
+        "vacation_id": 5
+    },
+    {
+        "user_id": 24,
+        "vacation_id": 5
+    },
+    {
+        "user_id": 25,
+        "vacation_id": 5
+    }
+]

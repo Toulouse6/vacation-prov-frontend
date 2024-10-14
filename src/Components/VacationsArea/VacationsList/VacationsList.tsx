@@ -86,8 +86,9 @@ function VacationsList(): JSX.Element {
                 }
 
                 // Sorting the fetched vacations by start date:
-                const sortedData = data.slice().sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-                console.log(`Data for filter ${filter}:`, sortedData);
+                const sortedData = data.slice().sort((a, b) => 
+                    new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+                );                console.log(`Data for filter ${filter}:`, sortedData);
                 setVacations(sortedData);
 
             } catch (error: any) {

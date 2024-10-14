@@ -1,0 +1,56 @@
+[
+    {
+        "id": 2,
+        "destination": "Paris",
+        "description": "Indulge in Parisian allure with exquisite art, culinary delights, and the Eiffel Tower's timeless grace on a romantic getaway.",
+        "start_date": "2024-03-29",
+        "end_date": "2024-04-10",
+        "price": 800.0,
+        "image_url": "b4b1827c-dd2f-4f1a-ac9e-3e3a411ced64.PNG"
+    },
+    {
+        "id": 3,
+        "destination": "London",
+        "description": "Immerse in London's rich history, royal elegance, and cosmopolitan energy, discovering iconic landmarks and diverse cultural treasures.",
+        "start_date": "2024-03-21",
+        "end_date": "2024-03-31",
+        "price": 790.0,
+        "image_url": "670b506a-dd7e-4f8e-923b-a8701d07bf5e.png"
+    },
+    {
+        "id": 4,
+        "destination": "New York",
+        "description": "Dive into the vibrant energy of NYC, where skyscrapers, Broadway lights, and Central Park beckon for an unforgettable urban adventure.",
+        "start_date": "2024-03-25",
+        "end_date": "2024-03-29",
+        "price": 990.0,
+        "image_url": "cb29203b-8dd4-4b60-9c96-6a37ba5f6f0e.PNG"
+    },
+    {
+        "id": 5,
+        "destination": "Ko Phangan",
+        "description": "Escape to Thailand's tropical paradise, where golden beaches, lush jungles, and vibrant markets invite you to embrace exotic beauty and serenity.",
+        "start_date": "2024-03-06",
+        "end_date": "2024-03-19",
+        "price": 980.0,
+        "image_url": "e72c84cc-44dd-43b7-9d5f-5e9e2e7dd1c1.PNG"
+    },
+    {
+        "id": 7,
+        "destination": "Miami",
+        "description": "Savor the sun-soaked vibes of Miami's glamorous beaches, vibrant nightlife, and eclectic culture for an unforgettable tropical escape.",
+        "start_date": "2024-03-29",
+        "end_date": "2024-04-06",
+        "price": 900.0,
+        "image_url": "4ad9332d-9b47-4549-9d53-3983d9641e71.jpeg"
+    },
+    {
+        "id": 8,
+        "destination": "Hong Kong",
+        "description": "Discover the dynamic blend of tradition and modernity in Hong Kong, where skyscrapers, vibrant markets, and rich history create an unforgettable urban experience.",
+        "start_date": "2024-05-08",
+        "end_date": "2024-05-24",
+        "price": 950.0,
+        "image_url": "1a4da2fb-05cc-49ee-ab17-afbf197c5dd9.jpeg"
+    }
+]

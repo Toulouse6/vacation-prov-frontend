@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import Layout from './Components/LayoutArea/Layout/Layout';
 import { appStore } from './Redux/Store';
 import { interceptors } from './Utils/Interceptors';
@@ -14,13 +14,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    // Wrap with BrowserRouter to allow Redux to all components:
-    <BrowserRouter>
+    // HashRouter to handle GitHub Pages routing:
+    <HashRouter>
         <Provider store={appStore}>
             <Layout />
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 );
-
 
 reportWebVitals();

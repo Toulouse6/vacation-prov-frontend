@@ -11,15 +11,22 @@ class VacationsService {
         return isNaN(parsedDate.getTime()) ? null : parsedDate;
     }
 
+    // Get all vacations from local storage:
+    private getAllVacationsFromLocalStorage(): VacationModel[] {
+        const storedVacations = localStorage.getItem('vacations');
+        return storedVacations ? JSON.parse(storedVacations) : [];
+    }
+
+
     // Get all vacations:
     public async getAllVacations(): Promise<VacationModel[]> {
+        // This method can now check local storage first
+        const localVacations = this.getAllVacationsFromLocalStorage();
+        if (localVacations.length > 0) return localVacations;
+
         try {
-            let vacations = appStore.getState().vacations;
-
-            if (vacations.length > 0) return vacations;
-
             const response = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
-            vacations = await response.json();
+            let vacations = await response.json();
 
             vacations = vacations.map((vacation: VacationModel) => ({
                 ...vacation,
@@ -101,26 +108,31 @@ class VacationsService {
         try {
             // Get favorite vacation IDs from LikesService
             const favoriteVacationIds = await likesService.getFavoriteVacations(userId);
-    
+
             // Fetch all vacations
             const vacationsResponse = await fetch(`${process.env.PUBLIC_URL}/data/vacations.json`);
             if (!vacationsResponse.ok) throw new Error(`Failed to fetch vacations: ${vacationsResponse.statusText}`);
             const vacations: VacationModel[] = await vacationsResponse.json(); // Ensure correct type
-    
+
             // Filter vacations by matching IDs from likes
             return vacations.filter((vacation: VacationModel) => favoriteVacationIds.includes(vacation.id));
         } catch (error) {
             console.error("Error fetching favorite vacations:", error);
             throw error;
         }
-    }    
-    
+    }
+
 
     // Add Vacation:
     public async addVacation(vacation: VacationModel): Promise<void> {
         try {
             const action = vacationActionCreators.addOne(vacation);
             appStore.dispatch(action);
+
+            // Save to local storage
+            const currentVacations = this.getAllVacationsFromLocalStorage(); // Retrieve current vacations
+            currentVacations.push(vacation); // Add the new vacation
+            localStorage.setItem('vacations', JSON.stringify(currentVacations)); // Save updated vacations to local storage
 
         } catch (error) {
             console.error("Error adding vacation:", error);
@@ -134,6 +146,11 @@ class VacationsService {
             const action = vacationActionCreators.updateOne(vacation);
             appStore.dispatch(action);
 
+            // Update local storage
+            const currentVacations = this.getAllVacationsFromLocalStorage();
+            const updatedVacations = currentVacations.map(v => v.id === vacation.id ? vacation : v);
+            localStorage.setItem('vacations', JSON.stringify(updatedVacations)); // Save updated vacations to local storage
+
         } catch (error) {
             console.error("Error updating vacation:", error);
             throw error;
@@ -146,11 +163,17 @@ class VacationsService {
             const action = vacationActionCreators.deleteOne(id);
             appStore.dispatch(action);
 
+            // Update local storage
+            const currentVacations = this.getAllVacationsFromLocalStorage();
+            const updatedVacations = currentVacations.filter(v => v.id !== id); // Remove the deleted vacation
+            localStorage.setItem('vacations', JSON.stringify(updatedVacations)); // Save updated vacations to local storage
+
         } catch (error) {
             console.error("Error deleting vacation:", error);
             throw error;
         }
     }
+
 }
 
 export const vacationsService = new VacationsService();

@@ -84,23 +84,18 @@ function VacationsList(): JSX.Element {
                     default:
                         data = await vacationsService.getAllVacations();
                 }
-
-                // Sorting the fetched vacations by start date:
-                const sortedData = data.slice().sort((a, b) =>
-                    new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-                );
-                console.log(`Data for filter ${filter}:`, sortedData);
-                setVacations(sortedData);
-
+                setVacations(data);
             } catch (error: any) {
                 notify.error(error.message);
             }
         };
-
+    
         if (user && user.id) {
             fetchVacations();
         }
     }, [filter, user]);
+    
+
 
 
     // Handling filter selection changes
@@ -198,7 +193,6 @@ function VacationsList(): JSX.Element {
                                 const likeData = likes.find(like => like.vacationId === vacation.id);
                                 const likeCount = likeData ? likeData.count : 0;
 
-                                // User Cards container
                                 return (
                                     <VacationCard
                                         key={vacation.id}
@@ -208,7 +202,7 @@ function VacationsList(): JSX.Element {
                                         likeCount={likeCount}
                                     />
                                 );
-                            })}
+                            })};
                             {/* Admin Pagination */}
                             <div className="Pagination">
                                 {currentPage > 1 && (

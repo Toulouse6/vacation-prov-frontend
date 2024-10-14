@@ -15,7 +15,6 @@ type VacationCardProps = {
     likeCount: number;
 };
 
-
 function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCardProps): JSX.Element {
 
     // Keys storing likes data in localStorage:
@@ -25,13 +24,7 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
     // State for managing like status
     const [liked, setLiked] = useState(() => {
         const storedLike = localStorage.getItem(likeStorageKey);
-
-        // Parse stored like status:
-        try {
-            return storedLike ? JSON.parse(storedLike) : false;
-        } catch {
-            return false;
-        }
+        return storedLike ? JSON.parse(storedLike) : false;
     });
 
     // State managing loading status:
@@ -39,14 +32,9 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
 
     // State managing local like count:
     const [localLikeCount, setLocalLikeCount] = useState(() => {
-
-        // Retrieve stored like count from localStorage using key:
         const storedCount = localStorage.getItem(countStorageKey);
-        // parse received value to integer base 10
-        const count = parseInt(storedCount, 10);
-        return !isNaN(count) ? count : likeCount;
+        return storedCount ? parseInt(storedCount, 10) : likeCount;
     });
-
 
     // Like toggle:
     const handleLikeToggle = async () => {
@@ -64,7 +52,7 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
             localStorage.setItem(likeStorageKey, JSON.stringify(newLike)); // Store new like status
             localStorage.setItem(countStorageKey, updatedCount.toString()); // Store new count
 
-            onLikesUpdated(); // Callback update likes in parent component
+            onLikesUpdated(); // Callback to update likes in parent component
         } catch (error) {
             console.error('Error toggling like:', error);
         } finally {
@@ -72,9 +60,7 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
         }
     };
 
-
     return (
-
         <div className={`VacationCard ${liked ? 'liked' : ''}`}>
             <div>
                 {/* Vacation image */}
@@ -113,10 +99,8 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
             <br />
             {/* Vacation price - rounded up */}
             <h4>${Number(vacation.price).toFixed(0)}</h4>
-
         </div>
     );
-
 }
 
 export default VacationCard;

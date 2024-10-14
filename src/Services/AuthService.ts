@@ -65,7 +65,7 @@ class AuthService {
         }
 
         // Simulate token generation and store in session storage
-        const token = user.token; // Using the pre-defined token in `users.json`
+        const token = user.token;  
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("user", JSON.stringify(user));
 

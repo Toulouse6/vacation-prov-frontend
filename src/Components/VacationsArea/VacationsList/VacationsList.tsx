@@ -86,9 +86,10 @@ function VacationsList(): JSX.Element {
                 }
 
                 // Sorting the fetched vacations by start date:
-                const sortedData = data.slice().sort((a, b) => 
+                const sortedData = data.slice().sort((a, b) =>
                     new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-                );                console.log(`Data for filter ${filter}:`, sortedData);
+                );
+                console.log(`Data for filter ${filter}:`, sortedData);
                 setVacations(sortedData);
 
             } catch (error: any) {
@@ -141,10 +142,13 @@ function VacationsList(): JSX.Element {
                             </div>
                             {/* Admin Cards container */}
                             <div className="CardsContainer">
-                                {displayedVacations.map(vacation => (
-                                    <AdminVacationCard key={vacation.id} vacation={vacation} />
+                                {displayedVacations.map((vacation) => (
+                                    vacation?.id && (
+                                        <AdminVacationCard key={vacation.id} vacation={vacation} />
+                                    )
                                 ))}
                             </div>
+
                             {/* Admin Pagination */}
                             {vacations.length !== 0 && (
                                 <div className="Pagination">
@@ -188,11 +192,13 @@ function VacationsList(): JSX.Element {
                     ) : (
                         <div>
                             {/* Searching for like data of vacation.id */}
-                            {displayedVacations.map(vacation => {
+                            {displayedVacations.map((vacation) => {
+                                if (!vacation?.id) return null; // Ensure vacation and id exist
+
                                 const likeData = likes.find(like => like.vacationId === vacation.id);
                                 const likeCount = likeData ? likeData.count : 0;
 
-                                {/* User Cards container */ }
+                                // User Cards container
                                 return (
                                     <VacationCard
                                         key={vacation.id}
@@ -222,8 +228,6 @@ function VacationsList(): JSX.Element {
             )}
         </div>
     );
-
-
 };
 
 export default VacationsList;

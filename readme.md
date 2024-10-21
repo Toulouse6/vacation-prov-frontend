@@ -1,4 +1,7 @@
 # Vacation Provocation (Frontend):
+
+  **This is a Frontend-only version. The full-stack version is also available on GitHub for those interested in a comprehensive experience.**:
+
 Sign up for the app to explore a variety of vacation options. Once registered, you can sort through vacations, highlight your favorites, and view upcoming trips. 
 
 If you have admin privileges, you'll also be able to add, edit, or remove vacations and monitor follower statistics for each vacation by user.
@@ -16,7 +19,7 @@ If you have admin privileges, you'll also be able to add, edit, or remove vacati
 **Password:** aharoni
 
 
-  **This is a Frontend only version**:
+  **Technologies**:
   - React
   - HTML5
   - CSS3

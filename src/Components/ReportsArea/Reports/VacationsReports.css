@@ -17,3 +17,22 @@
 .VacationsReports .likesChart a {
     display: none;
 }
+
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+
+    .VacationsReports h1 {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .VacationsReports .likesChart {
+        margin: 25px 0 0 0;
+        padding: 0 25px 0 0;
+    }
+    
+    .VacationsReports button {
+        margin-bottom: 25px;
+    }
+}

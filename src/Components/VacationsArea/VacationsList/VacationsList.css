@@ -104,3 +104,35 @@
 .ReportsBtn:hover {
     color: rgb(121, 144, 155);
 }
+
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+
+    .PaginationBtn {
+        font-size: 11px;
+    }
+
+    .VacationsList .AddBtn,
+    .ReportsBtn {
+        font-size: 12px;
+    }
+
+    .filter-btn {
+        margin: -20px 1px 8px 1px;
+        font-size: 13px;
+        width: 110px;
+        border-radius: 5px;
+    }
+
+    .filter-btn:first-child,
+    .filter-btn:nth-child(3) {
+        border-radius: 5px;
+    }
+
+    .VacationsList #FilterBtnGroup {
+        display: inline-flex;
+    }
+
+
+}

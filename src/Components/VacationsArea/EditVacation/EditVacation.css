@@ -19,3 +19,18 @@
 }
 
 /* Form setting in index.css */
+
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+
+    .EditVacation .thumbnail {
+        width: 30px;
+        height: 30px;
+    }
+
+    .EditVacation h1 {
+        font-size: 20px;
+    }
+
+}

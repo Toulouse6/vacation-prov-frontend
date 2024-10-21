@@ -1,5 +1,4 @@
 .TotalVacations {
-
     justify-content: center;
     width: 100%;
     text-transform: uppercase;
@@ -9,4 +8,15 @@
     display: flex;
     align-items: center;
     margin: 10px 0 20px 0;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+
+    .TotalVacations {
+        font-size: 13px;
+        margin-top: -20px;
+    }
+
 }

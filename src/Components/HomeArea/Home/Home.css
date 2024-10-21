@@ -30,3 +30,33 @@
     margin: 50px 385px -70px 0;
     width: 100px;
 }
+
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+
+    .Home h1 {
+        margin: 30px 0 -5px 0;
+        font-size: 22px;
+    }
+
+    .Home>p {
+        width: 85%;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .Home p>b {
+        font-weight: 800;
+        line-height: 1.8;
+        font-size: 20px;
+    }
+
+    .birdHome {
+        z-index: 2;
+        margin: 35px 0 -25px 0;
+        width: 80px;
+    }
+
+
+}

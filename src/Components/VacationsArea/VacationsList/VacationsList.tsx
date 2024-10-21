@@ -69,6 +69,9 @@ function VacationsList(): JSX.Element {
         const fetchVacations = async () => {
             try {
                 let data: VacationModel[] = [];
+                console.log("Fetching vacations for user ID:", user?.id); // Log user ID
+                console.log("Current filter:", filter); // Log current filter
+
                 switch (filter) {
                     case 'favorites':
                         if (user && user.id) {
@@ -84,8 +87,16 @@ function VacationsList(): JSX.Element {
                     default:
                         data = await vacationsService.getAllVacations();
                 }
-                console.log("Fetched Vacations Data:", data); // Log fetched data
-                setVacations(data);
+
+                // Log fetched data for debugging
+                console.log("Fetched Vacations Data:", data);
+
+                // Ensure vacation data is correctly structured
+                if (Array.isArray(data)) {
+                    setVacations(data);
+                } else {
+                    console.error("Unexpected data structure:", data);
+                }
             } catch (error: any) {
                 notify.error(error.message);
             }
@@ -95,6 +106,7 @@ function VacationsList(): JSX.Element {
             fetchVacations();
         }
     }, [filter, user]);
+
 
 
     // Handling filter selection changes

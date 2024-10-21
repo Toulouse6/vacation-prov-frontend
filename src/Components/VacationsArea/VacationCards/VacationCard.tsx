@@ -4,7 +4,7 @@ import VacationModel from "../../../Models/VacationModel";
 import { likesService } from "../../../Services/LikesService";
 import "./VacationCards.css";
 
-// Define props' types:
+// props types:
 type VacationCardProps = {
     vacation: VacationModel;
     user: UserModel;
@@ -15,7 +15,6 @@ type VacationCardProps = {
 
 function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCardProps): JSX.Element {
 
-    // Keys storing likes data in localStorage:
     const likeStorageKey = `liked_${vacation.id}_${user.id}`;
     const countStorageKey = `likeCount_${vacation.id}`;
 
@@ -24,7 +23,6 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
         return storedLike ? JSON.parse(storedLike) : false;
     });
 
-    // State managing loading status:
     const [loading, setLoading] = useState(false);
 
     // State managing local like count:
@@ -46,22 +44,24 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
             // Update like count:
             const updatedCount = newLike ? localLikeCount + 1 : Math.max(localLikeCount - 1, 0);
             setLocalLikeCount(updatedCount);
-            localStorage.setItem(likeStorageKey, JSON.stringify(newLike)); // Store new like status
-            localStorage.setItem(countStorageKey, updatedCount.toString()); // Store new count
+            localStorage.setItem(likeStorageKey, JSON.stringify(newLike)); 
+            localStorage.setItem(countStorageKey, updatedCount.toString());  
 
-            onLikesUpdated(); // Callback to update likes in parent component
+            onLikesUpdated();
         } catch (error) {
             console.error('Error toggling like:', error);
         } finally {
-            setLoading(false);  // Reset loading state
+            setLoading(false);
         }
     };
 
     return (
         <div className={`VacationCard ${liked ? 'liked' : ''}`}>
             <div>
-                {/* Vacation image */}
-                <img src={vacation.imageUrl} alt={vacation.destination} />
+                <img
+                    src={vacation.imageUrl}
+                    alt={vacation.destination}
+                />
             </div>
 
             <div className="LikeBox">
@@ -69,18 +69,16 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
                     type="button"
                     className={`like-btn ${liked ? 'active' : ''}`}
                     onClick={handleLikeToggle}
-                    disabled={loading}>
+                    disabled={loading}
+                >
                     {loading ? 'Loading...' : liked ? 'Liked' : 'Like'}
                 </button>
             </div>
 
-            {/* Displays current like count */}
             <span>{localLikeCount} likes</span>
 
-            {/* Vacation destination */}
             <h2>{vacation.destination}</h2>
 
-            {/* Vacation date - show as string */}
             <div className="Date">
                 {new Date(vacation.startDate).toLocaleString("en-US", {
                     month: "long",
@@ -91,10 +89,10 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
                     day: "numeric",
                 })}
             </div>
-            {/* Vacation description */}
+
             <p>{vacation.description}</p>
             <br />
-            {/* Vacation price - rounded up */}
+
             <h4>${Number(vacation.price).toFixed(0)}</h4>
         </div>
     );

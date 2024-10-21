@@ -22,23 +22,23 @@ const VacationsReports = () => {
     // State to store the data points for the chart
     const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
 
-    // useEffect to fetch server data:
+    // Fetch server data:
     useEffect(() => {
         likesService.getVacationsWithLikes()
-            .then((data: { destination: string; likesCount: number }[]) => { // Explicitly define the data type
+            .then((data: { destination: string; likesCount: number }[]) => {
                 console.log("API Response:", data);
                 const points = data.map((item) => ({
                     label: item.destination,
                     y: item.likesCount
                 }));
 
-                // Update state 
+                console.log("Mapped Data Points:", points);  
                 setDataPoints(points);
             })
             .catch((error: Error) => {
                 console.error('Error fetching vacations with likes:', error);
             });
-    }, []);  
+    }, []);
 
     // Chart options & css
     const options = {
@@ -77,19 +77,29 @@ const VacationsReports = () => {
         return csvRows.join("\n");
     };
 
-    // Function to trigger download
+    // Download CSV
     const downloadCSV = () => {
         const csvData = convertToCSV(dataPoints);
+        if (!csvData) {
+            console.error("CSV data is empty");
+            return;
+        }
+
         const blob = new Blob([csvData], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
+        console.log("Blob URL:", url);
 
         const a = document.createElement('a');
-        a.setAttribute('hidden', '');
-        a.setAttribute('href', url);
-        a.setAttribute('download', 'vacations-report.csv');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'vacations-report.csv';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+
+        setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+        }, 100);
     };
 
     return (

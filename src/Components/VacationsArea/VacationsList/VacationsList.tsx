@@ -43,6 +43,23 @@ function VacationsList(): JSX.Element {
     // State for managing filter selection:
     const [filter, setFilter] = useState<'all' | 'favorites' | 'upcoming' | 'active'>('all');
 
+    // Fetch vacations after registration
+    useEffect(() => {
+        const fetchVacations = async () => {
+            try {
+                const data = await vacationsService.getAllVacations();
+                console.log("Fetched Vacations Data:", data); // Log fetched data
+                setVacations(data);
+            } catch (error) {
+                console.error("Error fetching vacations:", error);
+            }
+        };
+
+        if (user) {
+            fetchVacations();
+        }
+    }, [user]);
+
 
     // Fetching likes for logged-in user:
     const fetchLikes = useCallback(async () => {
@@ -56,15 +73,13 @@ function VacationsList(): JSX.Element {
         }
     }, [user]);
 
-    // Effect to fetch likes data:
     useEffect(() => {
-        if (user && user.id) {
-            fetchLikes();
-        }
-    }, [user?.id]);
+        fetchLikes();
+    }, [fetchLikes]);
 
 
-    // Effect to fetch vacations based on the selected filter
+
+    // Fetch vacations based on filter
     useEffect(() => {
         const fetchVacations = async () => {
             try {
@@ -88,10 +103,7 @@ function VacationsList(): JSX.Element {
                         data = await vacationsService.getAllVacations();
                 }
 
-                // Log fetched data for debugging
-                console.log("Fetched Vacations Data:", data);
-
-                // Ensure vacation data is correctly structured
+                // Ensure vacation structure
                 if (Array.isArray(data)) {
                     setVacations(data);
                 } else {
@@ -115,7 +127,7 @@ function VacationsList(): JSX.Element {
         setCurrentPage(1);
     };
 
-    // Function for handling pagination
+    // Pagination
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     // Redirect to login page if user not found:
@@ -130,7 +142,7 @@ function VacationsList(): JSX.Element {
             <h1>Featured Vacations</h1>
             <TotalVacations />
 
-            {/* Render admin vacation cards */}
+            {/* Admin vacation cards */}
             {isAdmin && (
                 <div>
                     {/* Admin Loading Spinner */}
@@ -174,7 +186,7 @@ function VacationsList(): JSX.Element {
                     )}
                 </div>
             )}
-            {/* Render user vacation cards */}
+            {/* User vacation cards */}
             {isUser && (
                 <div>
                     {/* User Vacations filter */}
@@ -197,9 +209,9 @@ function VacationsList(): JSX.Element {
                         </>
                     ) : (
                         <div>
-                            {/* Searching for like data of vacation.id */}
+
                             {displayedVacations.map((vacation) => {
-                                if (!vacation?.id) return null; // Ensure vacation and id exist
+                                if (!vacation?.id) return null; // Check if vacation and id exist
 
                                 const likeData = likes.find(like => like.vacationId === vacation.id);
                                 const likeCount = likeData ? likeData.count : 0;

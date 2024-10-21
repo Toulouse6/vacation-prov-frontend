@@ -13,7 +13,7 @@ function Login(): JSX.Element {
 
     async function send(credentials: CredentialsModel) {
         try {
-            // Simulate login using the authService
+
             await authService.login(credentials);
 
             // Retrieve the logged-in user from session storage

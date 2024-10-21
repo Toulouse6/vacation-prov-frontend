@@ -5,17 +5,28 @@ import { authService } from "../../../Services/AuthService";
 import { notify } from "../../../Utils/Notify";
 import "./Register.css";
 import useTitle from "../../../Utils/UseTitle";
+import { vacationsService } from "../../../Services/VacationsService";
+import { useDispatch } from "react-redux";
+import { vacationActionCreators } from "../../../Redux/VacationSlice";
 
 function Register(): JSX.Element {
     const { register, handleSubmit, formState: { errors } } = useForm<UserModel>();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useTitle("| Register");
 
     async function send(user: UserModel) {
         try {
-            // Simulate registration using authService
             await authService.register(user);
             notify.success(`Welcome ${user.firstName} ${user.lastName}!`);
+
+            // Fetch all vacations after registration
+            const vacations = await vacationsService.getAllVacations();
+
+            // Dispatch the fetched vacations to the Redux store
+            dispatch(vacationActionCreators.initAll(vacations));
+
+            // Navigate to vacations page
             navigate("/vacations");
         } catch (err: any) {
             notify.error(err.message || "Error during registration.");

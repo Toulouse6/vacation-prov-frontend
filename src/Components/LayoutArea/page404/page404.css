@@ -14,3 +14,23 @@ h1 {
     margin: -100px -15px 0 20px;
     width: 100px;
 }
+
+
+/* Responsive Styles */
+
+@media (max-width: 500px) {
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .island {
+        width: 180px;
+
+    }
+
+    .bird404 {
+        width: 80px;
+    }
+
+}

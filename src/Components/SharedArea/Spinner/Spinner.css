@@ -7,3 +7,13 @@
 .Spinner>img {
     width: 100%;
 }
+
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+
+    .Spinner {
+        width: 80px;
+    }
+
+}

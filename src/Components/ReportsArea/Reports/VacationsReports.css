@@ -29,9 +29,9 @@
 
     .VacationsReports .likesChart {
         margin: 25px 0 0 0;
-        padding: 0 25px 0 0;
+        padding: 0 25px 0 20px;
     }
-    
+
     .VacationsReports button {
         margin-bottom: 25px;
     }

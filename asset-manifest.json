@@ -1,35 +1,18 @@
 {
   "files": {
     "main.css": "/vacation-prov-frontend/static/css/main.f9ad77f0.css",
-    "main.js": "/vacation-prov-frontend/static/js/main.1f69c045.js",
+    "main.js": "/vacation-prov-frontend/static/js/main.19ab3c2a.js",
     "static/js/453.f373523a.chunk.js": "/vacation-prov-frontend/static/js/453.f373523a.chunk.js",
     "static/media/clouds-footage.mp4": "/vacation-prov-frontend/static/media/clouds-footage.842dfc820718aae83340.mp4",
-    "static/media/tel-aviv.png": "/vacation-prov-frontend/static/media/tel-aviv.6a401dd7b22b2857dbc9.png",
-    "static/media/phangan.png": "/vacation-prov-frontend/static/media/phangan.7b0b8b90333d539b5090.png",
-    "static/media/barcelona.png": "/vacation-prov-frontend/static/media/barcelona.0090a3c1c298e5abd5e4.png",
-    "static/media/seoul.png": "/vacation-prov-frontend/static/media/seoul.8c659e47f2601f867491.png",
-    "static/media/lisbon.png": "/vacation-prov-frontend/static/media/lisbon.598c8aacd7800067c4c8.png",
-    "static/media/kenya.png": "/vacation-prov-frontend/static/media/kenya.3477cfe08c43321555a5.png",
-    "static/media/petra.png": "/vacation-prov-frontend/static/media/petra.8f6c8dc34cfea4114a7f.png",
-    "static/media/london.png": "/vacation-prov-frontend/static/media/london.4c21af9556e52e47e304.png",
-    "static/media/athens.png": "/vacation-prov-frontend/static/media/athens.8126f9815601841653a6.png",
-    "static/media/berlin.png": "/vacation-prov-frontend/static/media/berlin.cdad0471fcceaae18954.png",
-    "static/media/jerusalem.png": "/vacation-prov-frontend/static/media/jerusalem.4689975bd14d6061f720.png",
-    "static/media/amsterdam.png": "/vacation-prov-frontend/static/media/amsterdam.11f6e24525cf98bcf30f.png",
-    "static/media/sydney.png": "/vacation-prov-frontend/static/media/sydney.c940f23010372b72d7d3.png",
-    "static/media/tokyo.png": "/vacation-prov-frontend/static/media/tokyo.ac36d8fd013624a4bfbe.png",
     "static/media/bird1.gif": "/vacation-prov-frontend/static/media/bird1.1cd98b7a1f86a3c09583.gif",
-    "static/media/samui.png": "/vacation-prov-frontend/static/media/samui.5352e3f973455a1b0d1a.png",
     "static/media/peignot.regular.ttf": "/vacation-prov-frontend/static/media/peignot.regular.3e9d906d826f93666081.ttf",
-    "static/media/miami.png": "/vacation-prov-frontend/static/media/miami.456f85431f8641a3daaa.png",
-    "static/media/island-1.png": "/vacation-prov-frontend/static/media/island-1.124867c4ffa6c22644bf.png",
     "index.html": "/vacation-prov-frontend/index.html",
     "main.f9ad77f0.css.map": "/vacation-prov-frontend/static/css/main.f9ad77f0.css.map",
-    "main.1f69c045.js.map": "/vacation-prov-frontend/static/js/main.1f69c045.js.map",
+    "main.19ab3c2a.js.map": "/vacation-prov-frontend/static/js/main.19ab3c2a.js.map",
     "453.f373523a.chunk.js.map": "/vacation-prov-frontend/static/js/453.f373523a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f9ad77f0.css",
-    "static/js/main.1f69c045.js"
+    "static/js/main.19ab3c2a.js"
   ]
 }

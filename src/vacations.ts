@@ -6,7 +6,7 @@ const vacations = [
         startDate: "2024-06-01",
         endDate: "2024-06-07",
         price: 1200.0,
-        imageUrl: require("./Assets/vacations/amsterdam.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/amsterdam.png`
     },
     {
         id: 2,
@@ -15,7 +15,7 @@ const vacations = [
         startDate: "2024-06-10",
         endDate: "2024-06-15",
         price: 1100.0,
-        imageUrl: require("./Assets/vacations/jerusalem.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/jerusalem.png`
     },
     {
         id: 3,
@@ -24,7 +24,7 @@ const vacations = [
         startDate: "2024-06-20",
         endDate: "2024-06-25",
         price: 900.0,
-        imageUrl: require("./Assets/vacations/miami.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/miami.png`
     },
     {
         id: 4,
@@ -33,7 +33,7 @@ const vacations = [
         startDate: "2024-07-01",
         endDate: "2024-07-10",
         price: 950.0,
-        imageUrl: require("./Assets/vacations/samui.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/samui.png`
     },
     {
         id: 5,
@@ -42,7 +42,7 @@ const vacations = [
         startDate: "2024-07-15",
         endDate: "2024-07-22",
         price: 1500.0,
-        imageUrl: require("./Assets/vacations/tokyo.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/tokyo.png`
     },
     {
         id: 6,
@@ -51,7 +51,7 @@ const vacations = [
         startDate: "2024-08-01",
         endDate: "2024-08-10",
         price: 1200.0,
-        imageUrl: require("./Assets/vacations/athens.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/athens.png`
     },
     {
         id: 7,
@@ -60,7 +60,7 @@ const vacations = [
         startDate: "2024-08-15",
         endDate: "2024-08-22",
         price: 2000.0,
-        imageUrl: require("./Assets/vacations/kenya.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/kenya.png`
     },
     {
         id: 8,
@@ -69,7 +69,7 @@ const vacations = [
         startDate: "2024-09-01",
         endDate: "2024-09-10",
         price: 1300.0,
-        imageUrl: require("./Assets/vacations/barcelona.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/barcelona.png`
     },
     {
         id: 9,
@@ -78,7 +78,7 @@ const vacations = [
         startDate: "2024-09-15",
         endDate: "2024-09-22",
         price: 1100.0,
-        imageUrl: require("./Assets/vacations/lisbon.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/lisbon.png`
     },
     {
         id: 10,
@@ -87,7 +87,7 @@ const vacations = [
         startDate: "2024-09-30",
         endDate: "2024-10-09",
         price: 1600.0,
-        imageUrl: require("./Assets/vacations/petra.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/petra.png`
     },
     {
         id: 11,
@@ -96,7 +96,7 @@ const vacations = [
         startDate: "2024-10-14",
         endDate: "2024-10-24",
         price: 1700.0,
-        imageUrl: require("./Assets/vacations/sydney.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/sydney.png`
     },
     {
         id: 12,
@@ -105,7 +105,7 @@ const vacations = [
         startDate: "2024-10-31",
         endDate: "2024-11-09",
         price: 1400.0,
-        imageUrl: require("./Assets/vacations/berlin.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/berlin.png`
     },
     {
         id: 13,
@@ -114,7 +114,7 @@ const vacations = [
         startDate: "2024-11-14",
         endDate: "2024-11-21",
         price: 1500.0,
-        imageUrl: require("./Assets/vacations/london.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/london.png`
     },
     {
         id: 14,
@@ -123,7 +123,7 @@ const vacations = [
         startDate: "2024-11-30",
         endDate: "2024-12-09",
         price: 900.0,
-        imageUrl: require("./Assets/vacations/phangan.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/phangan.png`
     },
     {
         id: 15,
@@ -132,7 +132,7 @@ const vacations = [
         startDate: "2024-12-14",
         endDate: "2024-12-24",
         price: 1300.0,
-        imageUrl: require("./Assets/vacations/tel-aviv.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/tel-aviv.png`
     },
     {
         id: 16,
@@ -141,9 +141,8 @@ const vacations = [
         startDate: "2025-01-01",
         endDate: "2025-01-10",
         price: 1100.0,
-        imageUrl: require("./Assets/vacations/seoul.png")
+        imageUrl: `${process.env.PUBLIC_URL}/src/Assets/vacations/seoul.png`
     }
 ];
-
 
 export default vacations;

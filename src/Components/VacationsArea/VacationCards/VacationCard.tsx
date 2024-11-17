@@ -58,8 +58,11 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
     return (
         <div className={`VacationCard ${liked ? 'liked' : ''}`}>
             <div>
-                <img className="vacation-image" src={vacation.imageUrl} alt={vacation.destination} />
-
+                <img
+                    className="vacation-image"
+                    src={vacation.imageUrl || process.env.PUBLIC_URL + "/assets/placeholder.png"}
+                    alt={vacation.destination}
+                />
             </div>
 
             <div className="LikeBox">

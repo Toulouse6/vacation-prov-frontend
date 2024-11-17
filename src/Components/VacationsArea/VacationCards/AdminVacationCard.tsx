@@ -31,10 +31,7 @@ function AdminVacationCard(props: VacationCardProps): JSX.Element {
     return (
         <div className="VacationCard">
             <div>
-                <img
-                    src={props.vacation.imageUrl || '/Assets/Images/placeholder.png'}
-                    alt={props.vacation.destination}
-                />
+            <img className="vacation-image" src={props.vacation.imageUrl} alt={props.vacation.destination} />
             </div>
 
             {/* Admin buttons */}

@@ -44,8 +44,8 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
             // Update like count:
             const updatedCount = newLike ? localLikeCount + 1 : Math.max(localLikeCount - 1, 0);
             setLocalLikeCount(updatedCount);
-            localStorage.setItem(likeStorageKey, JSON.stringify(newLike)); 
-            localStorage.setItem(countStorageKey, updatedCount.toString());  
+            localStorage.setItem(likeStorageKey, JSON.stringify(newLike));
+            localStorage.setItem(countStorageKey, updatedCount.toString());
 
             onLikesUpdated();
         } catch (error) {
@@ -58,10 +58,8 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
     return (
         <div className={`VacationCard ${liked ? 'liked' : ''}`}>
             <div>
-                <img
-                    src={vacation.imageUrl}
-                    alt={vacation.destination}
-                />
+                <img className="vacation-image" src={vacation.imageUrl} alt={vacation.destination} />
+
             </div>
 
             <div className="LikeBox">

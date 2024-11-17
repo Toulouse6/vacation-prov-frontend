@@ -11,7 +11,6 @@ class AppConfig {
     public readonly likesUrl = "http://localhost:4000/api/likes";
     public readonly likesCountUrl = "http://localhost:4000/api/likes/count";
 
-    public readonly registerUrl = "http://localhost:4000/api/register";
     public readonly loginUrl = "http://localhost:4000/api/login";
 
 

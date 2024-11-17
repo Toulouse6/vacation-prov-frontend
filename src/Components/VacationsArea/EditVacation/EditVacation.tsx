@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import useTitle from "../../../Utils/UseTitle";
 
 function EditVacation(): JSX.Element {
+
     useTitle("Vacation Provocation | Edit");
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<VacationModel>();
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ function EditVacation(): JSX.Element {
     const [loading, setLoading] = useState<boolean>(false);
     const startDate = watch("startDate");
 
+    // Fetch vacation details & set form values:
     useEffect(() => {
         if (params.id) {
             vacationsService.getOneVacation(+params.id)
@@ -37,6 +39,7 @@ function EditVacation(): JSX.Element {
         }
     }, [params.id, setValue]);
 
+
     const send = async (vacation: VacationModel) => {
         try {
             setLoading(true);
@@ -56,44 +59,55 @@ function EditVacation(): JSX.Element {
         }
     };
 
+
     return (
         <div className="EditVacation">
+
             <h1>Edit Destination {params.id}</h1>
             <NavLink className="GoBack" to="/vacations">⇠ Go back</NavLink>
 
             <form onSubmit={handleSubmit(send)}>
+
                 <label htmlFor="destination">Destination:</label>
-                <input type="text" id="destination" className="form-control" {...register("destination", {
-                    required: "Destination is required.",
-                    minLength: { value: 2, message: "Minimum 2 characters required." },
-                    maxLength: { value: 50, message: "Maximum 50 characters allowed." }
-                })} />
+                <input type="text" id="destination" className="form-control" {...register("destination",
+                    {
+                        required: "Destination is required.",
+                        minLength: { value: 2, message: "Destination requires a minimum of 2 characters." },
+                        maxLength: { value: 50, message: "Destination should not exceed 50 characters." }
+                    })} />
+
                 {errors.destination && <p className="error">{String(errors.destination.message)}</p>}
 
                 <label htmlFor="description">Description:</label>
-                <input type="text" id="description" className="form-control" {...register("description", {
-                    required: "Description is required.",
-                    minLength: { value: 10, message: "Minimum 10 characters required." },
-                    maxLength: { value: 200, message: "Maximum 200 characters allowed." }
-                })} />
+                <input type="text" id="description" className="form-control" {...register("description",
+                    {
+                        required: "Description is required.",
+                        minLength: { value: 10, message: "Description requires a minimum of 10 characters." },
+                        maxLength: { value: 200, message: "Description should not exceed 200 characters." }
+                    })} />
                 {errors.description && <p className="error">{String(errors.description.message)}</p>}
 
                 <label htmlFor="startDate">Starts On:</label>
-                <input type="date" id="startDate" className="form-control" {...register("startDate", { required: "Start date is required." })} />
+                <input type="date" id="startDate" className="form-control" {...register("startDate",
+                    { required: "Start date is required." })}
+                />
 
                 <label htmlFor="endDate">Ends On:</label>
                 <input type="date" id="endDate" className="form-control" {...register("endDate", {
                     required: "End date is required.",
+
                     validate: endDate => endDate >= startDate || "End date must be later than the start date."
-                })} />
+                })}
+                />
                 {errors.endDate && <p className="error">{errors.endDate.message}</p>}
 
                 <label htmlFor="price">Price:</label>
-                <input type="number" id="price" className="form-control" step="0.01" {...register("price", {
-                    required: "Price is required.",
-                    min: { value: 0, message: "Price must be positive." },
-                    max: { value: 10000, message: "Max price is $10,000." }
-                })} />
+                <input type="number" id="price" className="form-control" step="0.01" {...register("price",
+                    {
+                        required: "Price is required.",
+                        min: { value: 0, message: "Price must be a positive value." },
+                        max: { value: 10000, message: "Price must be under $10,000." }
+                    })} />
                 {errors.price && <p className="error">{String(errors.price.message)}</p>}
 
                 <label>Image: </label>
@@ -103,9 +117,13 @@ function EditVacation(): JSX.Element {
                 <button className="btn btn-outline-secondary" disabled={loading}>
                     {loading ? "Updating..." : "Update Vacation"}
                 </button>
+
             </form>
+
         </div>
     );
+
 }
 
 export default EditVacation;
+

@@ -3,7 +3,6 @@ import Home from "../../HomeArea/Home/Home";
 import Page404 from "../page404/page404";
 import AddVacation from "../../VacationsArea/AddVacation/AddVacation";
 import VacationsList from "../../VacationsArea/VacationsList/VacationsList";
-import Register from "../../AuthArea/Register/Register";
 import Login from "../../AuthArea/Login/Login";
 import EditVacation from "../../VacationsArea/EditVacation/EditVacation";
 import VacationsReports from "../../ReportsArea/Reports/VacationsReports";
@@ -32,10 +31,7 @@ function Routing(): JSX.Element {
 
                 {/* Edit Vacation */}
                 <Route path="/vacations/edit/:id" element={<EditVacation />} />
-
-                {/* Register */}
-                <Route path="/register" element={<Register />} />
-
+                
                 {/* Login */}
                 <Route path="/login" element={<Login />} />
 

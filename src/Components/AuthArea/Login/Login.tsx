@@ -36,25 +36,36 @@ function Login(): JSX.Element {
             <h1>Login</h1>
             <form onSubmit={handleSubmit(send)}>
                 <label>Email:</label>
-                <input className="form-control" type="email" {...register("email", {
-                    required: "Insert your email.",
-                    pattern: {
-                        value: /\S+@\S+\.\S+/,
-                        message: "Invalid email address."
-                    }
-                })} />
+                <input
+                    className="form-control"
+                    type="email"
+                    defaultValue="tal.argamanbib@gmail.com" // Initial value for email
+                    {...register("email", {
+                        required: "Insert your email.",
+                        pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: "Invalid email address."
+                        }
+                    })}
+                />
                 {errors.email && <p className="error">{String(errors.email.message)}</p>}
 
                 <label>Password:</label>
-                <input className="form-control" type="password" {...register("password", {
-                    required: "Password is required."
-                })} />
+                <input
+                    className="form-control"
+                    type="password"
+                    defaultValue="argaman" // Initial value for password
+                    {...register("password", {
+                        required: "Password is required."
+                    })}
+                />
                 {errors.password && <p className="error">{String(errors.password.message)}</p>}
 
                 <button className="btn btn-outline-secondary">Login</button>
-                <p>Don't have an account? <Link to='/register'>Register here.</Link></p>
+                <p>Admin Credentials:<br /> meetollie@gmail.com | 1234</p>
             </form>
         </div>
+
     );
 }
 

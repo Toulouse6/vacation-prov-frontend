@@ -38,8 +38,6 @@ function AuthMenu(): JSX.Element {
         <div className="AuthMenu">
             <span>👤 Hello Guest</span>
             <NavLink to="/login">Login</NavLink>
-            <span>|</span>
-            <NavLink to="/register">Register</NavLink>
         </div>
     );
 }

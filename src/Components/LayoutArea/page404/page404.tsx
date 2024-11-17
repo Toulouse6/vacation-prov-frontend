@@ -1,11 +1,9 @@
 import "./page404.css";
-import NotFoundIsland from "../../../Assets/Images/island-1.png";
-import birdGif from "../../../Assets/Images/bird1.gif";
 import useTitle from "../../../Utils/UseTitle";
 
 function Page404(): JSX.Element {
 
-    // Hook to page title:
+    // Hook to set the page title
     useTitle("Vacation Provocation | Page Not Found");
 
     return (
@@ -13,10 +11,9 @@ function Page404(): JSX.Element {
             <h1>The page you are looking for
                 <br />doesn't exist</h1>
 
-            <img className="bird404" src={birdGif} alt="bird home" />
-
-            <img className="island" src={NotFoundIsland} alt="Not Found" />
-
+            {/* Use absolute paths for images */}
+            <img className="bird404" src="/Assets/Images/bird1.gif" alt="Bird Home" />
+            <img className="island" src="/Assets/Images/island-1.png" alt="Not Found" />
         </div>
     );
 }

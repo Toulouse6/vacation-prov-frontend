@@ -2,7 +2,7 @@ import VacationModel from "../Models/VacationModel";
 import { appStore } from "../Redux/Store";
 import { vacationActionCreators } from "../Redux/VacationSlice";
 import { likesService } from "./LikesService";
-import vacations from "../vacations"; 
+import vacations from "../vacations";
 
 class VacationsService {
     // Validate & parse dates
@@ -25,7 +25,7 @@ class VacationsService {
     // Get all vacations:
     public async getAllVacations(): Promise<VacationModel[]> {
         const localVacations = this.getAllVacationsFromLocalStorage();
-        console.log("Local Vacations: ", localVacations); 
+        console.log("Local Vacations: ", localVacations); // Log local vacations
 
         if (localVacations.length > 0) {
             return localVacations;
@@ -40,7 +40,7 @@ class VacationsService {
 
         const action = vacationActionCreators.initAll(vacationsData);
         appStore.dispatch(action);
-        this.saveVacationsToLocalStorage(vacationsData);  
+        this.saveVacationsToLocalStorage(vacationsData); // Save to local storage
         return vacationsData;
     }
 
@@ -48,7 +48,7 @@ class VacationsService {
     public async getOneVacation(id: number): Promise<VacationModel | undefined> {
         const vacations = this.getAllVacationsFromLocalStorage();
         const vacation = vacations.find((v) => v.id === id);
-        return vacation || undefined;  
+        return vacation || undefined; // Return found vacation or undefined
     }
 
     // Upcoming Vacations:
@@ -86,14 +86,22 @@ class VacationsService {
     // Add Vacation:
     public async addVacation(vacation: VacationModel): Promise<void> {
         try {
+            // Add vacation to Redux store
             const action = vacationActionCreators.addOne(vacation);
             appStore.dispatch(action);
 
+            // Retrieve current vacations
             const currentVacations = this.getAllVacationsFromLocalStorage();
+
+            // Add the new vacation
             currentVacations.push(vacation);
             this.saveVacationsToLocalStorage(currentVacations);
+
         } catch (error) {
             console.error("Error adding vacation:", error);
+
+            // Rollback if fails
+            appStore.dispatch(vacationActionCreators.deleteOne(vacation.id));
             throw error;
         }
     }
@@ -101,17 +109,28 @@ class VacationsService {
     // Edit Vacation:
     public async editVacation(vacation: VacationModel): Promise<void> {
         try {
+            // Update vacation in Redux store
             const action = vacationActionCreators.updateOne(vacation);
             appStore.dispatch(action);
 
             const currentVacations = this.getAllVacationsFromLocalStorage();
+
+            // Update vacation
             const updatedVacations = currentVacations.map(v => (v.id === vacation.id ? vacation : v));
             this.saveVacationsToLocalStorage(updatedVacations);
+
         } catch (error) {
             console.error("Error updating vacation:", error);
+
+            // Rollback if fails
+            const previousVacation = this.getAllVacationsFromLocalStorage().find(v => v.id === vacation.id);
+            if (previousVacation) {
+                appStore.dispatch(vacationActionCreators.updateOne(previousVacation));
+            }
             throw error;
         }
     }
+
 
     // Delete Vacation:
     public async deleteVacation(id: number): Promise<void> {

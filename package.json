@@ -15,8 +15,6 @@
         "@testing-library/user-event": "^13.5.0",
         "@types/jest": "^27.5.2",
         "@types/node": "^16.18.69",
-        "@types/react": "^18.2.46",
-        "@types/react-dom": "^18.2.18",
         "@types/react-redux": "^7.1.33",
         "@types/react-router-dom": "^5.3.3",
         "axios": "^1.6.5",
@@ -61,6 +59,9 @@
         ]
     },
     "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
         "gh-pages": "^6.2.0"
     }
 }

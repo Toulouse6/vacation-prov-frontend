@@ -1,18 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import UserModel from "../Models/UserModel";
 
-// Track & manage state changes made by different users:
-
-// Reducer for user registration:
-function register(currentState: UserModel, action: PayloadAction<UserModel>): UserModel {
-
-    // Extract user data from the action payload:
-    const registeredUser = action.payload;
-
-    // Update the current user state to the new user state:
-    const newState = registeredUser;
-    return newState;
-}
 
 // Reducer for user login:
 function login(currentState: UserModel, action: PayloadAction<UserModel>): UserModel {
@@ -33,7 +21,7 @@ const authSlice = createSlice({
 
     name: "auth",
     initialState: null,
-    reducers: { register, login, logout }
+    reducers: { login, logout }
 });
 
 

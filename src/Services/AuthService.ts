@@ -18,33 +18,6 @@ class AuthService {
         }
     }
 
-    // Simulate registering a new user:
-    public async register(newUser: UserModel): Promise<void> {
-        // Assign role ID for a regular user
-        newUser.roleId = 2;
-
-        // Mock users data:
-        const users: UserModel[] = JSON.parse(localStorage.getItem("users") || '[]'); // Get current users
-
-        // Check if the user already exists:
-        const existingUser = users.find((user: UserModel) => user.email === newUser.email); // Specify type for user
-        if (existingUser) {
-            throw new Error("User already exists");
-        }
-
-        // Simulate adding new user:
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users)); // Store updated users locally
-
-        // Simulate token generation and save to session storage:
-        const token = "dummy-token";
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("user", JSON.stringify(newUser));
-
-        // Update global state:
-        appStore.dispatch(authActionCreators.register(newUser));
-    }
-
 
     // Simulate logging in an existing user:
     public async login(credentials: CredentialsModel): Promise<void> {

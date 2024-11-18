@@ -8,7 +8,18 @@ import { useState, useEffect } from "react";
 import useTitle from "../../../Utils/UseTitle";
 
 // Generate a unique ID
-const generateUniqueId = () => Math.floor(Math.random() * 1000000);
+const generateUniqueId = (): number => {
+    const currentIds = Object.keys(localStorage)
+        .filter((key) => key.startsWith("vacation_image_"))
+        .map((key) => Number(key.replace("vacation_image_", "")));
+
+    let newId;
+    do {
+        newId = Math.floor(Math.random() * 1000000);
+    } while (currentIds.includes(newId));
+
+    return newId;
+};
 
 function AddVacation(): JSX.Element {
 
@@ -44,19 +55,29 @@ function AddVacation(): JSX.Element {
             if (vacation.image instanceof FileList) {
                 const imageFile = vacation.image[0];
                 if (imageFile) {
-                    const base64Image = await fileToBase64(imageFile); // Convert to Base64
+                    console.log("Uploaded file:", imageFile);
+
+                    const base64Image = await fileToBase64(imageFile);
+                    console.log("Base64 Image:", base64Image);
+
                     vacation.imageUrl = base64Image;
-                    localStorage.setItem(`vacation_image_${vacation.id}`, base64Image); // Save Base64 to localStorage
+                    localStorage.setItem(`vacation_image_${vacation.id}`, base64Image); // Save Base64 string to localStorage
+                } else {
+                    console.error("No file selected"); // Debug missing file
                 }
+            } else {
+                console.error("Invalid FileList");
             }
 
             await vacationsService.addVacation(vacation);
             notify.success("Vacation has been added.");
             navigate("/vacations");
         } catch (err: any) {
+            console.error("Error adding vacation:", err);
             notify.error(`Failed to add vacation: ${err.message}`);
         }
     }
+
 
     return (
         <div className="AddVacation">
@@ -65,11 +86,17 @@ function AddVacation(): JSX.Element {
 
             <form onSubmit={handleSubmit(send)}>
                 <label htmlFor="destination">Destination:</label>
-                <input type="text" id="destination" className="form-control" {...register("destination", {
-                    required: "Destination is required.",
-                    minLength: { value: 2, message: "Minimum 2 characters required." },
-                    maxLength: { value: 50, message: "Maximum 50 characters allowed." }
-                })} />
+                <input
+                    type="text"
+                    id="destination"
+                    defaultValue=""
+                    className="form-control"
+                    {...register("destination", {
+                        required: "Destination is required.",
+                        minLength: { value: 2, message: "Minimum 2 characters required." },
+                        maxLength: { value: 50, message: "Maximum 50 characters allowed." },
+                    })}
+                />
                 {errors.destination && <p className="error">{String(errors.destination.message)}</p>}
 
                 <label htmlFor="description">Description:</label>

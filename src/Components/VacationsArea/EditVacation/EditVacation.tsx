@@ -30,7 +30,9 @@ function EditVacation(): JSX.Element {
                         setValue('startDate', dayjs(vacation.startDate).format('YYYY-MM-DD'));
                         setValue('endDate', dayjs(vacation.endDate).format('YYYY-MM-DD'));
                         setValue('price', vacation.price);
-                        setImageUrl(vacation.imageUrl);
+
+                        const savedImageUrl = localStorage.getItem(`vacation_image_${vacation.id}`);
+                        setImageUrl(savedImageUrl || vacation.imageUrl);
                     } else {
                         notify.error("Vacation not found");
                     }
@@ -39,15 +41,22 @@ function EditVacation(): JSX.Element {
         }
     }, [params.id, setValue]);
 
+    useEffect(() => {
+        return () => {
+            if (imageUrl) URL.revokeObjectURL(imageUrl);
+        };
+    }, [imageUrl]);
 
     const send = async (vacation: VacationModel) => {
         try {
             setLoading(true);
             const imageFile = (vacation.image as unknown as FileList)[0];
             if (imageFile) {
-                vacation.image = imageFile;
-                vacation.imageUrl = URL.createObjectURL(imageFile);
+                const localImageUrl = URL.createObjectURL(imageFile);
+                vacation.imageUrl = localImageUrl;
+                localStorage.setItem(`vacation_image_${vacation.id}`, localImageUrl);
             }
+
             vacation.id = +params.id;
             await vacationsService.editVacation(vacation);
             notify.success('Vacation has been updated.');

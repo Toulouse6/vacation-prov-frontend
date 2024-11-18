@@ -4,7 +4,7 @@ import { notify } from "../../../Utils/Notify";
 import VacationModel from "../../../Models/VacationModel";
 import { vacationsService } from "../../../Services/VacationsService";
 import "./AddVacation.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useTitle from "../../../Utils/UseTitle";
 
 // Generate a unique ID
@@ -19,22 +19,44 @@ function AddVacation(): JSX.Element {
     const startDate = watch("startDate");
     const currentDate = new Date().toISOString().split('T')[0];
 
+    // Cleanup blob URL to prevent memory leaks
+    useEffect(() => {
+        return () => {
+            if (imageUrl) URL.revokeObjectURL(imageUrl);
+        };
+    }, [imageUrl]);
+
+    const checkLocalStorageSpace = () => {
+        try {
+            localStorage.setItem("__test__", "test");
+            localStorage.removeItem("__test__");
+            return true;
+        } catch (e) {
+            return false;
+        }
+    };
+
     async function send(vacation: VacationModel) {
         try {
-            vacation.id = generateUniqueId();
-            const imageFile = (vacation.image as unknown as FileList)[0];
+          vacation.id = generateUniqueId();
+      
+          if (vacation.image instanceof FileList) {
+            const imageFile = vacation.image[0];
             if (imageFile) {
-                vacation.image = imageFile;
-                vacation.imageUrl = URL.createObjectURL(imageFile);
+              // Generate and save the image URL to localStorage
+              const localImageUrl = URL.createObjectURL(imageFile);
+              vacation.imageUrl = localImageUrl;
+              localStorage.setItem(`vacation_image_${vacation.id}`, localImageUrl); // Save image to localStorage
             }
-
-            await vacationsService.addVacation(vacation);
-            notify.success("Vacation has been added.");
-            navigate("/vacations");
+          }
+      
+          await vacationsService.addVacation(vacation);
+          notify.success("Vacation has been added.");
+          navigate("/vacations");
         } catch (err: any) {
-            notify.error(`Failed to add vacation: ${err.message}`);
+          notify.error(`Failed to add vacation: ${err.message}`);
         }
-    }
+      }
 
     return (
         <div className="AddVacation">
@@ -82,12 +104,19 @@ function AddVacation(): JSX.Element {
 
                 <label>Image: </label>
                 {imageUrl && <img src={imageUrl} alt="Current Vacation" className="current-image" />}
-                <input className="form-control" type="file" accept="image/*" {...register("image", {
+                <input className="form-control" type="file" accept="image/png, image/jpeg" {...register("image", {
                     required: "Image is required.",
+                    validate: {
+                        fileType: (value) => {
+                            const file = value[0];
+                            return file && ["image/png", "image/jpeg"].includes(file.type) || "Only PNG or JPEG files are allowed.";
+                        },
+                    },
                     onChange: (e) => {
                         const file = e.target.files[0];
                         if (file) {
-                            setImageUrl(URL.createObjectURL(file));
+                            const localUrl = URL.createObjectURL(file);
+                            setImageUrl(localUrl);
                         }
                     }
                 })} />

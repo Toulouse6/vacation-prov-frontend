@@ -25,7 +25,7 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
 
     const [loading, setLoading] = useState(false);
 
-    // State managing local like count:
+    // Local like count state:
     const [localLikeCount, setLocalLikeCount] = useState(() => {
         const storedCount = localStorage.getItem(countStorageKey);
         return storedCount ? parseInt(storedCount, 10) : likeCount;
@@ -37,7 +37,7 @@ function VacationCard({ vacation, user, onLikesUpdated, likeCount }: VacationCar
         setLoading(true); // Set loading state
 
         try {
-            const newLike = !liked; // Toggle the like status
+            const newLike = !liked; // Toggle like
             await likesService.toggleLike(user.id, vacation.id);
             setLiked(newLike);
 

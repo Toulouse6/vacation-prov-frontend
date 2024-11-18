@@ -11,17 +11,20 @@ import useTitle from "../../../Utils/UseTitle";
 function EditVacation(): JSX.Element {
 
     useTitle("Vacation Provocation | Edit");
+
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<VacationModel>();
     const navigate = useNavigate();
     const params = useParams<{ id: string }>();
+
     const [imageUrl, setImageUrl] = useState<string | undefined>();
     const [loading, setLoading] = useState<boolean>(false);
     const startDate = watch("startDate");
 
+    // Convert file to Base64
     const fileToBase64 = (file: File): Promise<string> =>
         new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.readAsDataURL(file); // Convert file to Base64
+            reader.readAsDataURL(file);
 
             reader.onload = () => resolve(reader.result as string);
             reader.onerror = (error) => reject(error); // Reject on error
@@ -34,7 +37,7 @@ function EditVacation(): JSX.Element {
             vacationsService.getOneVacation(+params.id)
                 .then((vacation: VacationModel | undefined) => {
                     if (vacation) {
-                        console.log("Vacation retrieved:", vacation); // Debug vacation data
+                        console.log("Vacation retrieved:", vacation);
 
                         setValue('id', vacation.id);
                         setValue('destination', vacation.destination);
@@ -43,7 +46,7 @@ function EditVacation(): JSX.Element {
                         setValue('endDate', dayjs(vacation.endDate).format('YYYY-MM-DD'));
                         setValue('price', vacation.price);
 
-                        // Load image from localStorage or existing image URL
+                        // Load image from localStorage / image URL
                         const savedImageUrl = localStorage.getItem(`vacation_image_${vacation.id}`);
                         setImageUrl(savedImageUrl || vacation.imageUrl);
                     } else {
@@ -62,11 +65,9 @@ function EditVacation(): JSX.Element {
             if (vacation.image instanceof FileList) {
                 const imageFile = vacation.image[0];
                 if (imageFile) {
-                    console.log("Uploaded file:", imageFile); // Debug uploaded file
+                    console.log("Uploaded file:", imageFile);
 
                     const base64Image = await fileToBase64(imageFile);
-                    console.log("Base64 Image:", base64Image); // Debug Base64 image
-
                     vacation.imageUrl = base64Image;
                     localStorage.setItem(`vacation_image_${vacation.id}`, base64Image); // Save to localStorage
                 } else {
@@ -75,9 +76,6 @@ function EditVacation(): JSX.Element {
             } else {
                 console.error("Invalid FileList"); // Debug invalid FileList
             }
-
-            console.log("Final Vacation data:", vacation); // Debug final vacation data
-
             vacation.id = +params.id;
             await vacationsService.editVacation(vacation);
             notify.success('Vacation has been updated.');
@@ -89,8 +87,6 @@ function EditVacation(): JSX.Element {
             setLoading(false);
         }
     };
-
-
 
     return (
         <div className="EditVacation">

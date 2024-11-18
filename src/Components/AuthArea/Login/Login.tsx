@@ -39,7 +39,7 @@ function Login(): JSX.Element {
                 <input
                     className="form-control"
                     type="email"
-                    defaultValue="tal.argamanbib@gmail.com" // Initial value for email
+                    defaultValue="tal.argamanbib@gmail.com" // Initial email
                     {...register("email", {
                         required: "Insert your email.",
                         pattern: {
@@ -54,7 +54,7 @@ function Login(): JSX.Element {
                 <input
                     className="form-control"
                     type="password"
-                    defaultValue="argaman" // Initial value for password
+                    defaultValue="argaman" // Initial password
                     {...register("password", {
                         required: "Password is required."
                     })}

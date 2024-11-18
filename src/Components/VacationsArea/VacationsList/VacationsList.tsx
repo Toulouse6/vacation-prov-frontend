@@ -14,17 +14,16 @@ import { likesService } from "../../../Services/LikesService";
 
 function VacationsList(): JSX.Element {
 
-    // State hooks to manage vacations data, likes & pagination:
+    // State hooks
     const [vacations, setVacations] = useState<VacationModel[]>([]);
     const [likes, setLikes] = useState([]);
 
-    // Hook to page title:
     useTitle("Featured Vacations");
 
     // Redux store selector to access user data:
     const user = useSelector((state: any) => state.user);
 
-    // Checking user roles:
+    // Check user roles:
     const isAdmin = user?.roleId === 1;
     const isUser = user?.roleId === 2;
 
@@ -60,8 +59,7 @@ function VacationsList(): JSX.Element {
         }
     }, [user]);
 
-
-    // Fetching likes for logged-in user:
+    // Fetching likes for logged-in users:
     const fetchLikes = useCallback(async () => {
         try {
             if (user && user.id) {
@@ -120,8 +118,7 @@ function VacationsList(): JSX.Element {
     }, [filter, user]);
 
 
-
-    // Handling filter selection changes
+    // Handling filter selection
     const handleFilterToggle = (selectedFilter: 'favorites' | 'upcoming' | 'active') => {
         setFilter(prevFilter => prevFilter === selectedFilter ? 'all' : selectedFilter);
         setCurrentPage(1);
@@ -211,7 +208,7 @@ function VacationsList(): JSX.Element {
                         <div>
 
                             {displayedVacations.map((vacation) => {
-                                if (!vacation?.id) return null; // Check if vacation and id exist
+                                if (!vacation?.id) return null; // Check if vacation & id exist
 
                                 const likeData = likes.find(like => like.vacationId === vacation.id);
                                 const likeCount = likeData ? likeData.count : 0;

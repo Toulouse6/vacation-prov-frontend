@@ -20,10 +20,11 @@ If you have admin privileges, you'll also be able to add, edit, or remove vacati
 
 
   **Technologies**:
-  - React
+  - React JS
+  - TypeScript
   - HTML5
   - CSS3
-  - TypeScript
   - Redux
   - Notify
+  - Canvas JS
 

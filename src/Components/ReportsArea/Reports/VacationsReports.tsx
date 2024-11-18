@@ -16,7 +16,6 @@ interface DataPoint {
 
 const VacationsReports = () => {
 
-    // Hook page title:
     useTitle("Vacation Provocation | Reports");
 
     // State to store the data points for the chart
@@ -32,7 +31,7 @@ const VacationsReports = () => {
                     y: item.likesCount
                 }));
 
-                console.log("Mapped Data Points:", points);  
+                console.log("Mapped Data Points:", points);
                 setDataPoints(points);
             })
             .catch((error: Error) => {

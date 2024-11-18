@@ -7,7 +7,7 @@ import "./AddVacation.css";
 import { useState, useEffect } from "react";
 import useTitle from "../../../Utils/UseTitle";
 
-// Generate a unique ID
+// Generate unique ID
 const generateUniqueId = (): number => {
     const currentIds = Object.keys(localStorage)
         .filter((key) => key.startsWith("vacation_image_"))
@@ -34,10 +34,11 @@ function AddVacation(): JSX.Element {
     const fileToBase64 = (file: File): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.readAsDataURL(file); // Read the file as a data URL (Base64)
 
-            reader.onload = () => resolve(reader.result as string); // Base64 to string
-            reader.onerror = (error) => reject(error); // Reject if error
+            reader.readAsDataURL(file); // Read files as data URL (Base64)
+
+            reader.onload = () => resolve(reader.result as string); // Stringify 
+            reader.onerror = (error) => reject(error); // Reject on error
         });
     };
 
@@ -68,7 +69,6 @@ function AddVacation(): JSX.Element {
             } else {
                 console.error("Invalid FileList");
             }
-
             await vacationsService.addVacation(vacation);
             notify.success("Vacation has been added.");
             navigate("/vacations");
@@ -77,7 +77,6 @@ function AddVacation(): JSX.Element {
             notify.error(`Failed to add vacation: ${err.message}`);
         }
     }
-
 
     return (
         <div className="AddVacation">

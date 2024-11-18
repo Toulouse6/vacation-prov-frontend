@@ -1,7 +1,13 @@
 .AddVacation h1 {
-
     font-size: 25px;
     margin-bottom: 5px;
+}
+
+/* Preview image */
+.EditVacation .current-image {
+    width: 80px;
+    height: 80px;
+    padding: 10px;
 }
 
 /* Form setting in index.css */

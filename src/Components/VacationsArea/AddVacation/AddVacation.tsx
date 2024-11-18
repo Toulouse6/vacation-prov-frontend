@@ -25,12 +25,12 @@ function AddVacation(): JSX.Element {
             const reader = new FileReader();
             reader.readAsDataURL(file); // Read the file as a data URL (Base64)
 
-            reader.onload = () => resolve(reader.result as string); // Resolve with Base64 string
+            reader.onload = () => resolve(reader.result as string); // Base64 to string
             reader.onerror = (error) => reject(error); // Reject if error
         });
     };
 
-    // Cleanup blob URL to prevent memory leaks
+    // Cleanup blob URL
     useEffect(() => {
         return () => {
             if (imageUrl) URL.revokeObjectURL(imageUrl);

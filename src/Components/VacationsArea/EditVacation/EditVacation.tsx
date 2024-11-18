@@ -30,7 +30,8 @@ function EditVacation(): JSX.Element {
                         setValue('startDate', dayjs(vacation.startDate).format('YYYY-MM-DD'));
                         setValue('endDate', dayjs(vacation.endDate).format('YYYY-MM-DD'));
                         setValue('price', vacation.price);
-
+    
+                        // Load Base64 image from localStorage or use existing imageUrl
                         const savedImageUrl = localStorage.getItem(`vacation_image_${vacation.id}`);
                         setImageUrl(savedImageUrl || vacation.imageUrl);
                     } else {
@@ -40,12 +41,6 @@ function EditVacation(): JSX.Element {
                 .catch((err: Error) => notify.error(err.message));
         }
     }, [params.id, setValue]);
-
-    useEffect(() => {
-        return () => {
-            if (imageUrl) URL.revokeObjectURL(imageUrl);
-        };
-    }, [imageUrl]);
 
     const send = async (vacation: VacationModel) => {
         try {

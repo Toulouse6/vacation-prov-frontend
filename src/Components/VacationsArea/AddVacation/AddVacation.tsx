@@ -11,6 +11,7 @@ import useTitle from "../../../Utils/UseTitle";
 const generateUniqueId = () => Math.floor(Math.random() * 1000000);
 
 function AddVacation(): JSX.Element {
+
     useTitle("Vacation Provocation | Add");
     const { register, handleSubmit, watch, formState: { errors } } = useForm<VacationModel>();
     const navigate = useNavigate();
@@ -19,6 +20,16 @@ function AddVacation(): JSX.Element {
     const startDate = watch("startDate");
     const currentDate = new Date().toISOString().split('T')[0];
 
+    const fileToBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file); // Read the file as a data URL (Base64)
+
+            reader.onload = () => resolve(reader.result as string); // Resolve with Base64 string
+            reader.onerror = (error) => reject(error); // Reject if error
+        });
+    };
+
     // Cleanup blob URL to prevent memory leaks
     useEffect(() => {
         return () => {
@@ -26,37 +37,26 @@ function AddVacation(): JSX.Element {
         };
     }, [imageUrl]);
 
-    const checkLocalStorageSpace = () => {
-        try {
-            localStorage.setItem("__test__", "test");
-            localStorage.removeItem("__test__");
-            return true;
-        } catch (e) {
-            return false;
-        }
-    };
-
     async function send(vacation: VacationModel) {
         try {
-          vacation.id = generateUniqueId();
-      
-          if (vacation.image instanceof FileList) {
-            const imageFile = vacation.image[0];
-            if (imageFile) {
-              // Generate and save the image URL to localStorage
-              const localImageUrl = URL.createObjectURL(imageFile);
-              vacation.imageUrl = localImageUrl;
-              localStorage.setItem(`vacation_image_${vacation.id}`, localImageUrl); // Save image to localStorage
+            vacation.id = generateUniqueId();
+
+            if (vacation.image instanceof FileList) {
+                const imageFile = vacation.image[0];
+                if (imageFile) {
+                    const base64Image = await fileToBase64(imageFile); // Convert to Base64
+                    vacation.imageUrl = base64Image;
+                    localStorage.setItem(`vacation_image_${vacation.id}`, base64Image); // Save Base64 to localStorage
+                }
             }
-          }
-      
-          await vacationsService.addVacation(vacation);
-          notify.success("Vacation has been added.");
-          navigate("/vacations");
+
+            await vacationsService.addVacation(vacation);
+            notify.success("Vacation has been added.");
+            navigate("/vacations");
         } catch (err: any) {
-          notify.error(`Failed to add vacation: ${err.message}`);
+            notify.error(`Failed to add vacation: ${err.message}`);
         }
-      }
+    }
 
     return (
         <div className="AddVacation">

@@ -62,31 +62,38 @@ function EditVacation(): JSX.Element {
         try {
             setLoading(true);
 
-            if (vacation.image instanceof FileList) {
+            if (vacation.image instanceof FileList && vacation.image.length > 0) {
                 const imageFile = vacation.image[0];
                 if (imageFile) {
                     console.log("Uploaded file:", imageFile);
 
                     const base64Image = await fileToBase64(imageFile);
                     vacation.imageUrl = base64Image;
-                    localStorage.setItem(`vacation_image_${vacation.id}`, base64Image); // Save to localStorage
+                    localStorage.setItem(`vacation_image_${vacation.id}`, base64Image);
                 } else {
-                    console.error("No file selected"); // Debug missing file
+                    console.error("No file selected");
                 }
             } else {
-                console.error("Invalid FileList"); // Debug invalid FileList
+                const currentImageUrl = localStorage.getItem(`vacation_image_${vacation.id}`) || imageUrl;
+                if (currentImageUrl) {
+                    vacation.imageUrl = currentImageUrl;
+                } else {
+                    console.error("No existing image URL found");
+                }
             }
+
             vacation.id = +params.id;
             await vacationsService.editVacation(vacation);
             notify.success('Vacation has been updated.');
             navigate('/vacations');
         } catch (error: any) {
-            console.error("Error updating vacation:", error); // Debug errors
+            console.error("Error updating vacation:", error);
             notify.error(`Failed to update vacation: ${error.message}`);
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="EditVacation">

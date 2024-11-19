@@ -1,5 +1,4 @@
 import LikesModel from "../Models/LikesModel";
-import VacationModel from "../Models/VacationModel";
 import { vacationsService } from "./VacationsService";
 
 class LikesService {

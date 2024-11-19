@@ -42,6 +42,15 @@ function VacationsList(): JSX.Element {
     // State for managing filter selection:
     const [filter, setFilter] = useState<'all' | 'favorites' | 'upcoming' | 'active'>('all');
 
+
+    // Reset filters when navigating to /vacations
+    useEffect(() => {
+        if (location.pathname === '/vacations') {
+            setFilter('all');
+        }
+    }, [location.pathname]);
+
+
     // Fetch vacations after registration
     useEffect(() => {
         const fetchVacations = async () => {

@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/vacation-prov-frontend/static/css/main.37ec4aa1.css",
-    "main.js": "/vacation-prov-frontend/static/js/main.22c24a6a.js",
-    "static/js/453.f373523a.chunk.js": "/vacation-prov-frontend/static/js/453.f373523a.chunk.js",
+    "main.css": "/vacation-prov-frontend/static/css/main.f68a1849.css",
+    "main.js": "/vacation-prov-frontend/static/js/main.93abaa40.js",
+    "static/js/128.5a72b888.chunk.js": "/vacation-prov-frontend/static/js/128.5a72b888.chunk.js",
     "static/media/clouds-footage.mp4": "/vacation-prov-frontend/static/media/clouds-footage.842dfc820718aae83340.mp4",
     "static/media/bird1.gif": "/vacation-prov-frontend/static/media/bird1.1cd98b7a1f86a3c09583.gif",
     "static/media/peignot.regular.ttf": "/vacation-prov-frontend/static/media/peignot.regular.3e9d906d826f93666081.ttf",
     "index.html": "/vacation-prov-frontend/index.html",
-    "main.37ec4aa1.css.map": "/vacation-prov-frontend/static/css/main.37ec4aa1.css.map",
-    "main.22c24a6a.js.map": "/vacation-prov-frontend/static/js/main.22c24a6a.js.map",
-    "453.f373523a.chunk.js.map": "/vacation-prov-frontend/static/js/453.f373523a.chunk.js.map"
+    "main.f68a1849.css.map": "/vacation-prov-frontend/static/css/main.f68a1849.css.map",
+    "main.93abaa40.js.map": "/vacation-prov-frontend/static/js/main.93abaa40.js.map",
+    "128.5a72b888.chunk.js.map": "/vacation-prov-frontend/static/js/128.5a72b888.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.37ec4aa1.css",
-    "static/js/main.22c24a6a.js"
+    "static/css/main.f68a1849.css",
+    "static/js/main.93abaa40.js"
   ]
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, Navigate, useLocation } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import useTitle from "../../../Utils/UseTitle";
 import Spinner from "../../SharedArea/Spinner/Spinner";
 import { notify } from "../../../Utils/Notify";
@@ -12,14 +12,12 @@ import TotalVacations from "../TotalVacations/TotalVacations";
 import "./VacationsList.css";
 import { likesService } from "../../../Services/LikesService";
 
-
 function VacationsList(): JSX.Element {
 
     // State hooks
     const [vacations, setVacations] = useState<VacationModel[]>([]);
     const [likes, setLikes] = useState([]);
-    const location = useLocation(); 
-    
+
     useTitle("Featured Vacations");
 
     // Redux store selector to access user data:
@@ -43,13 +41,6 @@ function VacationsList(): JSX.Element {
 
     // State for managing filter selection:
     const [filter, setFilter] = useState<'all' | 'favorites' | 'upcoming' | 'active'>('all');
-
-    // Reset filters when navigating to /vacations
-    useEffect(() => {
-        if (location.pathname === '/vacations') {
-            setFilter('all');
-        }
-    }, [location.pathname]);
 
     // Fetch vacations after registration
     useEffect(() => {

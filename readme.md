@@ -6,7 +6,9 @@ This is a Frontend-only version. The full-stack version is also available on Git
 Sign up for the app to explore a variety of vacation options. Once registered, you can sort through vacations, highlight your favorites, and view upcoming trips. 
 <br><br>
 **Git Page:** https://toulouse6.github.io/vacation-prov-frontend/
-**Full-Stack Repository Page:**<br> https://github.com/Toulouse6/vacation-provocation-full-stack
+<br>
+**Full-Stack Repository Page:**
+<br> https://github.com/Toulouse6/vacation-provocation-full-stack
 
 **User Credentials:**
 - **Email:** tal.argamanbib@gmail.com

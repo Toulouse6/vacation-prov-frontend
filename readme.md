@@ -8,7 +8,7 @@ Sign up for the app to explore a variety of vacation options. Once registered, y
 **Git Page:** 
 <br>https://toulouse6.github.io/vacation-prov-frontend/
 <br>
-**Full-Stack Repository Page:**
+**Full-Stack Repository:**
 <br>
 https://github.com/Toulouse6/vacation-provocation-full-stack
 

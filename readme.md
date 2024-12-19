@@ -11,7 +11,9 @@ Sign up for the app to explore a variety of vacation options. Once registered, y
 **Full-Stack Repository:**
 <br>
 https://github.com/Toulouse6/vacation-provocation-full-stack
-<br><br>
+
+---
+
 **User Credentials:**
 - **Email:** tal.argamanbib@gmail.com
 - **Password:** argaman

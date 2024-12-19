@@ -13,7 +13,7 @@ Sign up for the app to explore a variety of vacation options. Once registered, y
 
 **Admin Credentials:**
 - **Email:** meetollie@gmail.com
-- **Password:** 12345678
+- **Password:** 1234
 
 ---
 

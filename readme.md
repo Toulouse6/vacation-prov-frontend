@@ -1,30 +1,28 @@
-# Vacation Provocation (Frontend):
+## Vacation Provocation (Frontend)
 
-  **This is a Frontend-only version. The full-stack version is also available on GitHub for those interested in a comprehensive experience.**:
+<img align="right" src="./src/Assets/vacation-prov-screenshot.png" alt="Vacation-prov Screenshot" width="350">
 
+This is a Frontend-only version. The full-stack version is also available on GitHub for those interested in a comprehensive experience.
 Sign up for the app to explore a variety of vacation options. Once registered, you can sort through vacations, highlight your favorites, and view upcoming trips. 
+<br><br>
+**Git Page:** https://toulouse6.github.io/vacation-prov-frontend/
 
-If you have admin privileges, you'll also be able to add, edit, or remove vacations and monitor follower statistics for each vacation by user.
+**Admin Credentials:**
+- **Email:** tal.argamanbib@gmail.com
+- **Password:** argaman
 
-### Admin Credentials (roleId: 1):
-**Email:** meetollie@gmail.com
-**Password:** 1234
+---
 
-### Users Credentials (roleId: 2):
+**Technologies Used:**
 
-**Email:** tal.argamanbib@gmail.com
-**Password:** argaman
+- **React JS**
+- **TypeScript**
+- **CSS3**
+- **HTML5**
 
-**Email:** itay.aharoni@gmail.com
-**Password:** aharoni
+- **Redux**
+- **Notify**
+- **Canvas JS**
 
 
-  **Technologies**:
-  - React JS
-  - TypeScript
-  - HTML5
-  - CSS3
-  - Redux
-  - Notify
-  - Canvas JS
-
+**Author**: Tal Argaman

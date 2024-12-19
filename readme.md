@@ -1,4 +1,4 @@
-## Vacation Provocation (Frontend)
+## Vacation Provocation (Front-End)
 
 <img align="right" src="./src/Assets/vacation-prov-screenshot.png" alt="Vacation-prov-screenshot" width="350">
 

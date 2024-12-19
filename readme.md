@@ -11,6 +11,10 @@ Sign up for the app to explore a variety of vacation options. Once registered, y
 - **Email:** tal.argamanbib@gmail.com
 - **Password:** argaman
 
+**Admin Credentials:**
+- **Email:** meetollie@gmail.com
+- **Password:** 12345678
+
 ---
 
 **Technologies Used:**

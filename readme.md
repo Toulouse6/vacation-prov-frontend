@@ -1,6 +1,6 @@
 ## Vacation Provocation (Frontend)
 
-<img align="right" src="./src/Assets/vacation-prov-screenshot.png" alt="Vacation-prov Screenshot" width="350">
+<img align="right" src="./src/Assets/vacation-prov-screenshot.png" alt="Vacation-prov-screenshot" width="350">
 
 This is a Frontend-only version. The full-stack version is also available on GitHub for those interested in a comprehensive experience.
 Sign up for the app to explore a variety of vacation options. Once registered, you can sort through vacations, highlight your favorites, and view upcoming trips. 
@@ -25,4 +25,4 @@ Sign up for the app to explore a variety of vacation options. Once registered, y
 - **Canvas JS**
 
 
-**Author**: Tal Argaman
+**Author: Tal Argaman**

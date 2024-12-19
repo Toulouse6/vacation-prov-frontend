@@ -7,7 +7,7 @@ Sign up for the app to explore a variety of vacation options. Once registered, y
 <br><br>
 **Git Page:** https://toulouse6.github.io/vacation-prov-frontend/
 
-**Admin Credentials:**
+**User Credentials:**
 - **Email:** tal.argamanbib@gmail.com
 - **Password:** argaman
 

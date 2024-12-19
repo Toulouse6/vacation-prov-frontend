@@ -14,17 +14,31 @@ https://github.com/Toulouse6/vacation-provocation-full-stack
 
 ---
 
-**User Credentials:**
+**Credentials Front-End**
+
+**User:**
 - **Email:** tal.argamanbib@gmail.com
 - **Password:** argaman
 
-**Admin Credentials:**
+**Admin:**
 - **Email:** meetollie@gmail.com
 - **Password:** 1234
 
 ---
 
-**Technologies Used:**
+**Credentials Full-Stack**
+
+**User:**
+- **Email:** tal.argamanbib@gmail.com
+- **Password:** 87654321
+
+**Admin:**
+- **Email:** meetollie@gmail.com
+- **Password:** 12345678
+
+---
+
+**Technologies:**
 
 - **React JS**
 - **TypeScript**
@@ -35,5 +49,6 @@ https://github.com/Toulouse6/vacation-provocation-full-stack
 - **Notify**
 - **Canvas JS**
 
+---
 
-**Author: Tal Argaman**
+**Author:** Tal Argaman
